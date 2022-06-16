@@ -19,7 +19,7 @@
         </aside>
       </div>
 
-      <v-btn class="h11_em btn align" @click="showDialog(item),modalPurchased=true; windowModal=1">
+      <v-btn :disabled="item.retired" class="h11_em btn align" @click="showDialog(item),modalPurchased=true; windowModal=1">
         WITHDRAW WALLET
       </v-btn>
 
@@ -81,7 +81,7 @@
               </v-form>
 
               <aside class="center">
-                <v-btn class="btn" @click="modalPurchased=false">ACCEPT</v-btn>
+                <v-btn class="btn" @click="getDomainsPurchased(),modalPurchased=false">ACCEPT</v-btn>
               </aside>
             </v-card>
           </v-window-item>
@@ -209,6 +209,7 @@ export default {
         const url = "http://localhost:3080/api/v1/withdraw-domain/"
         axios.post(url, item)
               .then((response) => {
+                console.log(response)
                 if (response.status === 200){
                   console.log(response.data.seedPhrase)
                   let seedPhrase = response.data.seedPhrase.split(' ')

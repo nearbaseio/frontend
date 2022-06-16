@@ -21,17 +21,31 @@
           </v-btn>
           <v-btn 
             v-if="item.active"
+            :disabled="ResProgress"
             class="h11_em btnOutline"
             @click="clickPause(item)"
           >
             PAUSE SALE
+            <v-progress-circular
+            v-if="ResProgress"
+            :size="18"
+            :width="4"
+            indeterminate
+            ></v-progress-circular>
           </v-btn>
           <v-btn 
             v-else
+            :disabled="ResProgress"
             class="h11_em btnOutline"
             @click="clickPause(item)"
           >
             RESUME SALE
+            <v-progress-circular
+            v-if="ResProgress"
+            :size="18"
+            :width="4"
+            indeterminate
+            ></v-progress-circular>
           </v-btn>
           <v-btn class="h11_em btn">
             CANCEL SALE
@@ -48,7 +62,7 @@
     >
       <v-card class="modalSale divcol">
         <v-toolbar color="#B322D8" style="color:#FFFFFF">
-          <v-btn icon dark @click="closeDialog">
+          <v-btn icon dark @click="closeDialog" :disabled="changeProgress">
             <v-icon style="color:#FFFFFF !important">mdi-close</v-icon>
           </v-btn>
 
@@ -72,8 +86,18 @@
 
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn @click="updateDomain()" class="btn3 h11_em">
+          <v-btn 
+            :disabled="changeProgress"
+            @click="updateDomain()" 
+            class="btn3 h11_em"
+          >
             SAVE
+            <v-progress-circular
+              v-if="changeProgress"
+              :size="18"
+              :width="4"
+              indeterminate
+            ></v-progress-circular>
           </v-btn>
         </v-card-actions>
         </v-card>
@@ -100,6 +124,8 @@ export default {
   i18n: require("../../i18n"),
   data() {
     return {
+      changeProgress: false,
+      ResProgress: false,
       snackbar: {},
       dataSale: [],
       priceNear: null,
@@ -116,12 +142,13 @@ export default {
       return utils.format.formatNearAmount(price.toLocaleString('fullwide', { useGrouping: false }))
     },
     clickPause (item) {
+        this.ResProgress = true
         this.editedItem = item
         this.editedItem.status = !this.editedItem.active
         this.updateDomain()
     },
     async updateDomain () {
-        console.log(this.dataSale)
+        this.changeProgress = true
         this.snackbar = {}
         this.progress = true
         const CONTRACT_NAME = 'contract.nearbase.testnet'
@@ -149,7 +176,8 @@ export default {
                 text: "Updated domain",
                 visible: true
             }        
-            this.progress = false
+            this.ResProgress = false
+            this.changeProgress = false
             this.getDomainsPurchased()
             this.closeDialog()
           }).catch((error) => {
@@ -164,7 +192,8 @@ export default {
               text: error,
               visible: true
             }
-            this.progress = false
+            this.ResProgress = false
+            this.changeProgress = false
           })
     },
     showDialog (item) {
