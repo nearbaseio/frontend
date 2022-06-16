@@ -1,20 +1,6 @@
 <template>
   <v-card id="account" color="var(--clr-card-3)" style="display:flex">
     <section>
-      <v-snackbar v-model="snackbar.visible" auto-height :color="snackbar.color" :multi-line="snackbar.mode === 'multi-line'" :timeout="snackbar.timeout" :top="snackbar.position === 'top'">
-      <v-layout align-center pr-4>
-        <v-icon class="pr-3" dark large>{{ snackbar.icon }}</v-icon>
-        <v-layout column>
-          <div>
-            <strong>{{ snackbar.title }}</strong>
-          </div>
-          <div>{{ snackbar.text }}</div>
-        </v-layout>
-      </v-layout>
-      <v-btn v-if="snackbar.timeout === 0" icon @click="snackbar.visible = false">
-        <v-icon>clear</v-icon>
-      </v-btn>
-    </v-snackbar>
       <aside class="divcol">
         <div class="space">
           <label class="h9_em" for="nearName">FIRST NAME</label>
