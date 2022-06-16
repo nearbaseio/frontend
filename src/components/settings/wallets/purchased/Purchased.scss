@@ -1,0 +1,65 @@
+@use "@/styles/app" as *;
+
+#wallets {
+  // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // /
+  // // // purchased // // // 
+  // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // /
+  &.purchased {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-gap: 5em 1.5em;
+    // grid-template-columns: repeat(2, 1fr);
+    @media (max-width: 520px) {grid-template-columns: repeat(1, 1fr) !important;}
+    .cartaDown {
+      gap: 1em;
+      &:only-of-type {max-width: 300px;}
+      .imgTop {
+        @include absolute(0, -30px);
+        width: 7em;
+        aspect-ratio: 1/1;
+      }
+      .btnOutline {
+        margin-left: auto;
+        width: 5.7em !important;
+      }
+      .btn {width: 90% !important;}
+    }
+  }
+}
+
+  // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // /
+  // // // modal purchased // // // 
+  // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // /
+.modalPurchased {
+  label {
+    font-family: 'League Gothic', sans-serif !important;
+    font-weight: 400;
+    font-size: clamp(1.5em, 6vw, 2em);
+    letter-spacing: 0.03em;
+  }
+  .v-input__slot {
+    background-color: #ECEBFF !important;
+    box-shadow: inset 0px 4px 2px rgba(0, 0, 0, 0.3) !important;
+    border-radius: 30px !important;
+  }
+  .v-input--checkbox {
+    .v-input__slot {
+      background: transparent !important;
+      box-shadow: none !important;
+    }
+  }
+  .contPhrase {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-gap: 1.2em 2em;
+  }
+  a {
+    font-family: 'Roboto', sans-serif !important;
+    font-weight: 400;
+    letter-spacing: 0.03em;
+    text-decoration-line: underline !important;
+    &.active {
+      color: $clr-btn !important;
+    }
+  }
+}

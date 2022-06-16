@@ -1,0 +1,35 @@
+@use "@/styles/app" as *;
+
+#wallets {
+  // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // /
+  // // // sold // // // 
+  // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // /
+  &.sold {
+    .card-wrapper {
+      letter-spacing: 0.07em;
+      line-height: 1.2;
+      margin-top: 3.5em;
+      max-width: 850px !important;
+      width: 100%;
+      margin-inline: auto;
+      &+.card-wrapper {margin-top: 4.5em}
+      .cartaTop {
+        top: -25% !important;
+        padding-right: 1em;
+        h3 {
+          font-size: clamp(1em, 6.5vw, 2.5em) !important;
+        }
+        span {
+          font-size: clamp(.8em, 3vw, 1em) !important;
+        }
+      }
+      .cartaDown {
+        padding-top: 6em;
+        padding-inline: clamp(3em, 4vw, 4em);
+        .firstcont {
+          margin-left: clamp(0em, 2vw, 3em);
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,115 @@
+@use "@/styles/app" as *;
+
+// // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // /
+// // // settings // // // 
+// // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // /
+#settings {
+  --margin-right: 4em;
+  max-width: calc(100% - var(--margin-right));
+  margin-block: 9em;
+  margin-inline: var(--margen-global) var(--margin-right);
+  .contHead {
+    padding-bottom: 2em;
+    margin-bottom: 3em;
+    position: relative;
+    gap: 1em;
+    &::before {
+      content: "";
+      @include absolute(0, auto, 0, 0);
+      background-color: var(--clr-card-inv);
+      width: 99%;
+      height: 2px;
+    }
+    &>h2 {
+      font-family: 'League Gothic', sans-serif !important;
+      font-weight: 400;
+      letter-spacing: 0.02em;
+      .backBtn {
+        @include absolute(calc((var(--margen-global) - 5%) * -1));
+      }
+    }
+    .contProfile {
+      .v-badge__badge {
+        transform: translate(-60%, -60%);
+        .v-btn {
+          --size: 3em;
+          width: var(--size) !important;
+          height: var(--size) !important;
+        }
+      }
+      h3 {
+        display: flex;
+        align-items: flex-end;
+        font-family: 'League Gothic', sans-serif !important;
+        font-weight: 400 !important;
+        letter-spacing: 0.21em;
+        img {
+          --size: .5em;
+          width: var(--size) !important;
+          height: var(--size) !important;
+        }
+      }
+    }
+  }
+  .contMain {
+    display: grid;
+    grid-template-columns: 190px 1fr;
+    grid-gap: 2em;
+    .hide {.v-badge__badge{display: none !important}}
+    .listaMain {
+      --size: 1000px;
+      position: relative;
+      width: var(--size);
+      transform: translateX(195px);
+      left: calc(var(--size) * -1);
+      &::before {display: none !important}
+      &::after {
+        content: "";
+        @include absolute(0, 0, 0, 0);
+        width: 100%;
+        height: 100%;
+        background-color: $clr-btn;
+        opacity: 0;
+        border-radius: 50px;
+        transform: scaleX(0.2);
+        transform-origin: left;
+        transition: 250ms $ease-return;
+      }
+      &.active {
+        &::after {
+          opacity: 1 !important;
+          transform: scaleX(1) !important;
+        }
+        :is(span, .v-badge__badge) {color: $clr-text-btn !important}
+      }
+      .v-list-item__content {
+        width: 190px;
+        position: absolute;
+        right: 0;
+        text-align: start;
+        span {
+          z-index: 1;
+          transition: 250ms $ease-return;
+        }
+      }
+    }
+    .contViews {
+      margin-left: auto;
+      max-width: calc(100% - 2em);
+      width: 100%;
+    }
+    .publish {
+      font-size: clamp(.65em, .7vw,.7em) !important;
+      position: relative;
+      margin-top: 3em;
+      box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25) !important;
+      &::after {
+        content: "";
+        @include absolute(0, -2em, 0, auto);
+        background-color: var(--clr-card-inv);
+        width: 100%;
+        height: 2px;
+      }
+    }
+  }
+}

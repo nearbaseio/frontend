@@ -1,0 +1,43 @@
+@use "@/styles/app" as *;
+
+#wallets {
+  // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // /
+  // // // sale // // // 
+  // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // /
+  &.sale {
+    @media (max-width: 1000px) {font-size: 14px !important}
+    .card-wrapper {
+      letter-spacing: 0.07em;
+      line-height: 1.2;
+      margin-top: 3.5em;
+      max-width: 800px !important;
+      width: 100%;
+      margin-inline: auto;
+      &+.card-wrapper {margin-top: 4.5em}
+      .cartaTop {top: -30%;}
+      .cartaDown {padding-top: 7em}
+    }
+    @media (max-width: 420px) and (max-height: 1180px) {
+      font-size: 11px !important;
+      // .cartaTop {top: -30% !important;}
+      .cartaDown {
+        border-radius: 40px !important;
+        .v-btn {
+        max-height: max-content !important;
+        height: max-content !important;
+        padding-block: .5em !important;
+      }}
+      @media (max-width: 330px) {font-size: 9px !important;}
+    }
+  }
+}
+
+
+// // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // /
+// // // modal sale // // // 
+// // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // /
+.modalSale {
+  .v-toolbar {
+    border-radius: 50px / 100px !important;
+  }
+}

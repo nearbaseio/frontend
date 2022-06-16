@@ -1,0 +1,80 @@
+@use "@/styles/app" as *;
+
+// // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // /
+/* // // trending // // */ 
+// // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // /
+/* // // desktop // // */ 
+#explore {
+  .contTrending {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: clamp(2em, 3vw, 3em);
+    animation: moveup 1s $ease;
+    @media (max-width: 1300px) {
+      grid-template-columns: repeat(2, 1fr) !important;
+      @media (max-width: 880px) and (max-height: 1180px) {
+        grid-template-columns: repeat(1, 1fr) !important;
+        @media (max-width: 500px) {
+          font-size: 14px !important;
+          @media (max-width: 330px) {
+            font-size: 12px !important;
+          }
+        }
+      }
+    }
+    .cartas {
+      padding: 2em;
+      border-radius: $border-card;
+      box-shadow: $sombra-card !important;
+      @media (max-width: 880px) and (max-height: 1180px) {
+        padding: 2em 0em !important;
+        border-radius: 0;
+        box-shadow: none !important;
+        background-color: var(--clr-card-2) !important;
+        border-bottom: 2px solid var(--clr-card-inv) !important;
+        gap: 1em;
+      }
+      .v-card {
+        box-shadow: $sombra-card !important;
+        border-radius: $border-card;
+        height: clamp(12em, 13vw, 13em);
+        padding: .2em;
+        gap: 1em;
+        overflow: hidden;
+        transition: 0.2s $ease;
+        animation: cutmovement 5s infinite $ease-return;
+        animation-play-state: paused;
+        &.active {
+          background-color: #AD0FD5 !important;
+          animation-play-state: running;
+        }
+        @keyframes cutmovement {
+          0% {
+            transform: rotate(0deg);
+          }
+          20% {
+            transform: rotate(15deg);
+          }
+          60% {
+            transform: rotate(-360deg) translateX(-80%);
+          }
+        }
+        img {
+          height: clamp(6em, 7vw, 7em);
+          aspect-ratio: 1 / 1;
+        }
+        h4 {
+          color: #191919 !important;
+        }
+      }
+      h3 {
+        letter-spacing: 0.21em !important;
+      }
+      a {
+        color: $clr-btn !important;
+        font-weight: bold !important;
+        word-break: break-all !important;
+      }
+    }
+  }
+}

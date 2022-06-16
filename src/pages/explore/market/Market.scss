@@ -1,0 +1,171 @@
+@use "@/styles/app" as *;
+
+// // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // /
+/* // // market // // */
+// // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // /
+/* // // desktop // // */
+#explore {
+  .contTop {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    // @include media(min, 1000px) {
+    //   grid-template-columns: repeat(2, 1fr);
+    //   @include media(min, large) {
+    //     grid-template-columns: repeat(3, 1fr);
+    //   }
+    // }
+    // grid-gap: 0 clamp(2em, 3vw, 3em);
+    animation: moveup 1s $ease;
+    // margin-top: 6em;
+    @media (max-width: 880px) and (max-height: 1180px) {
+      grid-template-columns: repeat(2, 1fr) !important;
+      @media (max-width: 600px) {
+        font-size: 12px !important;
+        @media (max-width: 390px) {
+          font-size: 8px !important;
+        }
+      }
+    }
+    .card-wrapper {
+      font-size: 14px;
+      letter-spacing: 0.07em;
+      line-height: 1.2;
+      transition: grid-column 1s $ease-return;
+      &.colspan {
+        grid-column: span 2;
+        .cartaDown {
+          width: 100%;
+          max-width: none !important;
+        }
+      }
+      span {font-family: 'Roboto', sans-serif !important}
+      .cartaTop {
+        background-color: transparent !important;
+        border-radius: $border-card $border-card 0 $border-card !important;
+        z-index: 1;
+        width: 65%;
+        margin-left: auto;
+        bottom: -19%;
+        &.active {
+          width: 90% !important;
+          background-color: $clr-btn !important;
+          box-shadow: $sombra-card !important;
+        }
+        .contText {
+          animation: moveright 0.5s $ease-return, aparecer 0.5s $ease-return;
+          h3 {
+            // font-size: min(3.5vmax, 2.8em);
+            letter-spacing: 0.21em !important;
+            color: $clr-text-btn !important;
+            margin-bottom: 5px !important;
+          }
+          :is(span, a) {
+            // font-size: min(1vmax, 1em);
+            color: $clr-text-btn !important;
+          }
+        }
+        img {
+          width: clamp(8em, 11vmax, 11.5625em);
+          aspect-ratio: 1 / 1;
+          color: $clr-text-btn !important;
+          transform: translateX(-14%) scale(1.1);
+          border-radius: 50%;
+          &:hover {
+            animation: cutrotate 1s $ease-return infinite alternate;
+          }
+          &.active {
+            animation: latido 0.5s $ease;
+            &:hover {
+              animation: cutrotate 1s $ease-return infinite alternate;
+            }
+          }
+        }
+      }
+      .cartaDown {
+        max-width: 22em;
+        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25) !important;
+        border-radius: $border-card;
+        padding-inline: 2em;
+        padding-block: 6em 2em;
+        z-index: 0;
+        @media (max-width: 600px) and (max-height: 1180px) {
+          border-radius: 30px !important;
+        }
+        h3 {
+          letter-spacing: 0.21em !important;
+          overflow: hidden;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+          border-radius: 0 !important;
+          transition: .5s $ease;
+          &.hide {
+            opacity: 0.2;
+            transform: translateY(-135%);
+            visibility: hidden;
+          }
+        }
+        .contPrice {
+          @media (max-width: 480px) and (max-height: 1180px) {
+            display: flex;
+            flex-direction: column;
+            gap: .2em;
+          }
+        }
+        .contButtons {
+          gap: clamp(1em, 2vw, 2em);
+          :is(.buyBtn, .offerBtn) {
+            min-width: max-content !important;
+            min-height: max-content !important;
+            max-width: max-content !important;
+            max-height: max-content !important;
+            width: max-content !important;
+            height: max-content !important;
+            padding: 1em clamp(1em, 2vw, 2em) !important;
+          }
+          .buyBtn {
+            background-color: $clr-btn !important;
+            border-radius: $border-btn;
+            // padding: 1.5em 1em;
+            animation: movedown .5s $ease-return;
+            span {
+              color: $clr-text-btn !important;
+            }
+          }
+          .offerBtn {
+            background-color: #FFFFFF !important;
+            border: 1px solid $clr-btn !important;
+            border-radius: $border-btn;
+            // padding: 1.5em 1em;
+            animation: movedown .10s $ease-return;
+            span {
+              color: $clr-btn !important;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@keyframes latido {
+  25% {
+    transform: translateX(-14%) scale(1.15);
+  }
+  50% {
+    transform: translateX(-14%) scale(1.1);
+  }
+  75% {
+    transform: translateX(-14%) scale(1.15);
+  }
+  100% {
+    transform: translateX(-14%) scale(1.1);
+  }
+}
+@keyframes cutrotate {
+  0% {
+    transform: translateX(-14%) scale(1.1) rotate(15deg);
+  }
+  100% {
+    transform: translateX(-14%) scale(1.1) rotate(-15deg);
+  }
+}

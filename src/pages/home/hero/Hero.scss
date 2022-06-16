@@ -1,0 +1,238 @@
+@use "@/styles/app" as *;
+
+// // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // /
+/* // // hero // // */ 
+// // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // /
+/* // // desktop // // */ 
+#hero {
+  background: center no-repeat fixed url('../../../assets/images/bg.png');
+  background-size: cover;
+  padding-bottom: 2em;
+  :is(.v-btn, h1) {cursor: none};
+  // up
+  .contup {
+    gap: clamp(1em, 3vw, 3em);
+    // left
+    .sectleft {
+      padding-top: clamp(3rem, 22vh , 8rem);
+      width: 70ch;
+      @include media(max, small) {z-index: 2}
+    }
+    @media (max-height: 800px) {
+      .contleft {
+        padding-top: clamp(3rem, 17vh , 9rem);
+      }
+    }
+    .v-btn {
+      margin-left: auto;
+      width: max-content;
+      pointer-events: all !important;
+    }
+    // right
+    .contHeroImg {
+      position: relative;
+      width: clamp(30em, 45vw, 45em);
+      aspect-ratio: 1 / 1;
+      $perspective: 45em;
+      @include browser(transform-style, preserve-3d);
+      @include browser(transform, perspective($perspective));
+      @include media(max, small) {
+        @include absoluteCenter;
+        width: 100% !important;
+        aspect-ratio: initial !important;
+      };
+      .heroImg {
+        @include absoluteCenter;
+        width: clamp(30em, 45vw, 45em);
+        aspect-ratio: 1 / 1;
+      }
+      .sceneImg {
+        .heroImgMobile {
+          @include absoluteCenter;
+          object-fit: contain;
+          @include media(max, 340px) {object-fit: fill !important}
+        }
+      }
+    }
+    .cursor {
+      --size: 2em;
+      width: var(--size);
+      height: var(--size);
+      border: 2px solid $clr-btn;
+      background-color: var(--clr);
+      border-radius: 50%;
+      position: absolute;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      z-index: 3;
+      transition: all .3s $ease-return;
+      transition-property: background-image, transform;
+      transform-origin: 100% 100%;
+      display: none;
+      &.textOver {
+        display: block;
+        transform: scale(4);
+        @include color((#FFFFFF, $clr-btn));
+        mix-blend-mode: multiply;
+      }
+      &.buttonsOver {
+        display: block;
+        transform: scale(1.5);
+        background-image: $clr-gradient;
+        mix-blend-mode: multiply;
+      }
+    }
+  }
+  // down
+  .contdown {
+    font-family: 'Roboto', sans-serif !important;
+    max-width: 1200px;
+    .v-btn {
+      min-width: max-content;
+      padding: 3.5em;
+      aspect-ratio: 1 / 1;
+      border-radius: 50%;
+      z-index: 2;
+      @include color(#191919, #FFFFFF);
+    }
+    .slider {
+      @include absolute(auto, 0, 0, 0);
+      height: max-content;
+      width: 95%;
+      padding-block: 0.6em;
+      margin-left: auto;
+      display: flex;
+      overflow: hidden;
+      border-radius: 15px;
+      background-color: #C4C4C4;
+      @include reducedMotion {
+        .slide {
+          @include animation(40s linear infinite) {
+            0% {transform: translateX(100%)}
+            100% {transform: translateX(-100%)}
+          }
+        }
+        span {
+          white-space: nowrap;
+          color: #191919 !important;
+        }
+      }
+    }
+  }
+
+  /* hero section */
+  .controls {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    margin-block: auto;
+    right: 0;
+    display: flex;
+    height: max-content;
+    width: max-content;
+    gap: 0.2em;
+    transform: translate(140%, -50%);
+    .buttons-icon {
+      padding: 0.9em !important;
+      aspect-ratio: 1 / 1;
+      img {
+        &.rotate {
+          transform: rotate(180deg);
+        }
+      }
+      &.inactive {
+        background-color: #c4c4c4 !important;
+        .v-icon {
+          color: #000000 !important;
+        }
+        img {
+          filter: invert(100%);
+        }
+      }
+    }
+  }
+}
+
+/* // // mobile // // */ 
+@media (max-width: 880px) and (max-height: 1180px) {
+  #hero {
+    padding-bottom: 4em;
+    // up
+    .contup {
+      // background: right no-repeat url("../../../assets/images/hero-mobile.png");
+      // background-size: contain;
+      margin-left: 7em;
+      aside {
+        div {
+          flex-direction: column-reverse !important;
+        }
+      }
+      @media (max-width: 700px) {
+        margin-left: 0 !important;
+        .v-spacer {
+          display: none !important;
+        }
+      }
+      // left
+      .sectleft {
+        width: 60ch !important;
+        @media (max-width: 400px) {
+          width: 20ch !important;
+        }
+      }
+    }
+    // down
+    .contdown {
+      width: 99%;
+      transform: rotate(-1.5deg);
+      @media (max-width: 600px) {
+        max-width: 90% !important;
+      }
+      .v-btn {
+        transform: translateY(-6px);
+      }
+      .slider {
+        background-color: transparent !important;
+        padding: 1.5em !important;
+        border-radius: 25px;
+        &::before {
+          content: "";
+          position: absolute;
+          bottom: 5px;
+          width: 100%;
+          height: 60%;
+          background-color: #C4C4C4;
+          transform: rotate(1deg) translateX(10px);
+          z-index: 0;
+        }
+        &::after {
+          content: "";
+          position: absolute;
+          top: 5px;
+          width: 100%;
+          height: 60%;
+          background-color: #C4C4C4;
+          transform: rotate(-2deg) translateX(10px);
+          z-index: 0;
+        }
+        .slide {
+          z-index: 1;
+        }
+      }
+    }
+
+    // hero section //
+    h2 {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      .controls {
+        position: static !important;
+        transform: translate(0%, 0%) !important;
+        .buttons-icon {
+          padding: clamp(0.1em, 0.7vw, 0.3em) !important;
+        }
+      }
+    }
+  }
+}

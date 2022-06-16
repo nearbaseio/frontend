@@ -1,0 +1,45 @@
+@use "@/styles/app" as *;
+
+// // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // /
+/* // // stats // // */ 
+// // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // /
+/* // // desktop // // */ 
+#stats {
+  font-size: 16px;
+  padding-top: clamp(3rem, 22vh , 8rem);
+  padding-bottom: 7em;
+  @media (max-width: 880px) and (max-height: 1180px) {
+    padding-bottom: 3em !important;
+  }
+  .contup {
+    padding-inline: clamp(0em, 10vw, 15em);
+    @media (max-width: 1400px) {
+      padding-inline: clamp(0em, 5vw, 15em) !important;
+      @media (max-width: 350px) and (max-height: 1180px) {
+        font-size: 13px !important;
+      }
+    }
+    a {
+      color: $clr-btn !important;
+    }
+    img {
+      width: clamp(20em, 60vw, 35em);
+    }
+    .v-card {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      border-radius: $border-btn;
+      @media (max-width: 400px) and (max-height: 1180px) {
+        font-size: 15px !important;
+      }
+      .v-btn {
+        border-radius: $border-btn;
+        background-color: transparent;
+        padding: 1.5em 1em;
+        span {
+          color: $clr-btn;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,20 @@
+@use "@/styles/app" as *;
+
+// // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // /
+// // // layout // // // 
+// // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // /
+#layout {
+  background: var(--clr-card-2);
+  .wrapperSpace {
+    // padding: 4rem $content-padding 70px $content-padding;
+    padding-inline: 0;
+    padding-bottom: clamp(22em, 29vw, 29em) !important;
+    @media (max-width: 400px) {
+      padding-bottom: 18em !important;
+    }
+    // padding-top: clamp(3rem, 22vh , 8rem);
+  }
+  .delWrapperSpacerapperMobile {
+    padding-bottom: 0em !important;
+  }
+}

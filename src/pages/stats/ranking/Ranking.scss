@@ -1,0 +1,169 @@
+@use "@/styles/app" as *;
+
+// // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // /
+/* // // ranking // // */ 
+// // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // /
+/* // // desktop // // */ 
+#stats {
+  .contRanking {
+    animation: moveup 1s $ease;
+    @media (max-width: 430px) and (max-height: 1180px) {
+      font-size: 14px !important;
+      @media (max-width: 360px) {
+        font-size: 13px !important;
+        @media (max-width: 330px) {
+          font-size: 11px !important;
+        }
+      }
+    }
+    .headerMobile {
+      img {
+        width: clamp(23em, 65vw, 40em);
+      }
+      .controlsMobile {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        border-radius: $border-btn;
+        @media (max-width: 400px) and (max-height: 1180px) {font-size: 15px !important;}
+        .v-btn {
+          border-radius: $border-btn;
+          background-color: transparent;
+          padding: 1.5em 1em;
+          .v-input__slot {
+            box-shadow: none !important;i {color: $clr-btn !important}
+            .v-select__selections {
+              width: 100%;input {display: none !important}}
+            .v-select__selection {
+              letter-spacing: 0.07em;color: $clr-btn;}
+          }
+          &.active {
+            background-color: var(--clr-btn-2) !important;
+            :is(.v-select__selection, i) {color: var(--clr-inv) !important}
+          }
+        }
+      }
+    }
+    .contlist {
+      margin-top: 2em;
+      gap: clamp(2em, 4vw, 4em);
+      .listRanking {
+        margin-top: 3em;
+        // gap: 4em;
+        line-height: 1.2;
+        &::before {
+          content: "";
+          position: absolute;
+          background-color: #191919;
+          width: 90%;
+          height: 1px;
+          bottom: 0;
+          left: 0;
+          right: 0;
+          margin-inline: auto;
+        }
+        .wrapper-left {
+          --distance: clamp(10em, 16vw, 16em);
+          gap: clamp(1em,1.5vw,1.5em);
+          padding-bottom: 2em;
+          position: relative;
+          .contText {
+            margin-left: var(--distance);
+            h3 {letter-spacing: 0.21em !important}
+            a {color: $clr-btn !important}
+          }
+          .wrapperCard {
+            @include absolute(0, -3em, auto, 0);
+            transform: translateX( calc(var(--distance) + 2.5em));
+            @include media(max, small) {transform: translateX( calc(var(--distance) + 3em))}
+            @include media(max, 330px) {transform: translateX( calc(var(--distance) + 4em))}
+          }
+          .v-card {
+            --size: 1000px;
+            position: relative;
+            width: var(--size);
+            left: calc(var(--size) * -1);
+            gap: clamp(1em,1.5vw,1.5em);
+            padding: 0.5em;
+            // padding-left: clamp(0em, 10vw, 15em) !important;
+            // @include media(max, 1400px) {padding-left: clamp(0em, 5vw, 15em) !important}
+            border-radius: 0 $border-card $border-card 0;
+            @include animation(1s $ease-return alternate infinite paused) {
+              0% {transform: translateX(-5%) rotate(3deg)}
+              100% {transform: rotate(-3deg)}
+            }
+            &::before {display: none !important}
+            &.active {
+              background-color: $clr-btn !important;
+              animation-play-state: running;
+            }
+            .number {
+              transform: translateY(-.2em) !important;
+              width: max-content !important;
+              height: max-content !important;
+              line-height: 0 !important;
+              font-size: clamp(8em, 15vw, 15em);
+              color: $clr-btn !important;
+            }
+            img {
+              width: clamp(5em, 8vw, 8em) !important;
+              aspect-ratio: 1 / 1 !important;
+              border-radius: 50%;
+            }
+          }
+        }
+        .wrapper-right {
+          padding-left: 2em;
+          padding-bottom: 2em;
+          margin-right: 5%;
+          .contButtons {
+            gap: clamp(1em, 2vw, 2em);
+            &:after {
+              content: "";
+              position: absolute;
+              width: 1px;
+              height: 70%;
+              left: 0;
+              top: 0;
+              background-color: #191919;
+            }
+            :is(.buyBtn, .offerBtn) {
+              min-width: max-content !important;
+              min-height: max-content !important;
+              max-width: max-content !important;
+              max-height: max-content !important;
+              width: max-content !important;
+              height: max-content !important;
+              padding-block: 0.7em 0.6em !important;
+              padding-inline: clamp(0.5em, 1vw, 1.4em) !important;
+            }
+            .buyBtn {
+              background-color: $clr-btn !important;
+              border-radius: $border-btn;
+              // padding: 1.5em 1em;
+              animation: movedown .5s $ease-return;
+              span {
+                color: $clr-text-btn !important;
+              }
+            }
+            .offerBtn {
+              background-color: #FFFFFF !important;
+              border: 1px solid $clr-btn !important;
+              border-radius: $border-btn;
+              // padding: 1.5em 1em;
+              animation: movedown .10s $ease-return;
+              span {
+                color: $clr-btn !important;
+              }
+            }
+          }
+          .mobileRight {
+            .percent {
+              &.green_ {color: #5aee14 !important}
+              &.red_ {color: #ff4081 !important}
+            }
+          }
+        }
+      }
+    }
+  }
+}
