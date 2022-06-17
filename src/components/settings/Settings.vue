@@ -96,13 +96,14 @@ export default {
           badge: true,
           active: false
         },
+        /*
         {
           key: "notifications",
           name: "NOTIFICATIONS",
           to: "/settings/notifications",
           badge: false,
           active: false
-        },
+        },*/
         {
           key: "wallets",
           name: "WALLETS",
@@ -110,12 +111,13 @@ export default {
           badge: true,
           active: false
         },
+        /*
         {
           key: "privacy",
           name: "PRIVACY POLICY",
           badge: true,
           active: false
-        },
+        },*/
         {
           key: "terms",
           name: "TERMS & SERVICE",

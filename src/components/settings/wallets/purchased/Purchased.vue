@@ -1,10 +1,9 @@
 <template>
   <section id="wallets" class="purchased divcol gap2">
-    <Alerts ref="alerts"></Alerts>
     <v-card v-for="(item,i) in dataPurchased" :key="i" class="cartaDown divcol" style="display:flex"
       color="var(--clr-card-3)">
       <img class="imgTop" :src="item.img" alt="reference img">
-      <v-btn class="h11_em btnOutline">
+      <v-btn :disabled="item.retired" class="h11_em btnOutline">
         RESELL
       </v-btn>
 
@@ -20,7 +19,11 @@
         </aside>
       </div>
 
-      <v-btn class="h11_em btn align" @click="showDialog(item),modalPurchased=true; windowModal=1">
+      <v-btn v-if="item.retired" disabled class="h11_em btn align" @click="showDialog(item),modalPurchased=true; windowModal=1">
+        WITHDRAWN
+      </v-btn>
+
+      <v-btn v-else class="h11_em btn align" @click="showDialog(item),modalPurchased=true; windowModal=1">
         WITHDRAW WALLET
       </v-btn>
 
@@ -82,7 +85,7 @@
               </v-form>
 
               <aside class="center">
-                <v-btn class="btn" @click="modalPurchased=false">ACCEPT</v-btn>
+                <v-btn class="btn" @click="getDomainsPurchased(),modalPurchased=false">ACCEPT</v-btn>
               </aside>
             </v-card>
           </v-window-item>
@@ -93,7 +96,6 @@
 </template>
 
 <script>
-import Alerts from '@/components/alerts/Alerts'
 import axios from 'axios'
 import * as nearAPI from 'near-api-js'
 const { connect, keyStores, WalletConnection, Contract, utils } = nearAPI
@@ -110,10 +112,10 @@ const config = {
 export default {
   name: "walletsPurchased",
   i18n: require("../../i18n"),
-  components: { Alerts },
   data() {
     return {
       num: 0,
+      snackbar: {},
       domainItem: {},
       priceNear: null,
       dataPurchased: [],
@@ -211,6 +213,7 @@ export default {
         const url = "http://localhost:3080/api/v1/withdraw-domain/"
         axios.post(url, item)
               .then((response) => {
+                console.log(response)
                 if (response.status === 200){
                   console.log(response.data.seedPhrase)
                   let seedPhrase = response.data.seedPhrase.split(' ')
@@ -229,11 +232,29 @@ export default {
 
                   this.windowModal = 2       
                 } else if (response.status === 204){
-                  this.$refs.alerts.Alerts('cancel', null, 'Algo ocurrio');
-                }
+                    this.snackbar = {
+                      color: "red",
+                      icon: "error",
+                      mode: "multi-line",
+                      position: "top",
+                      timeout: 1500,
+                      title: "Error!",
+                      text: "Algo ocurrio",
+                      visible: true
+                    }
+                  }  
             }).catch((error) => {
               console.log(error)
-              this.$refs.alerts.Alerts('cancel', null, error);
+              this.snackbar = {
+                color: "red",
+                icon: "error",
+                mode: "multi-line",
+                position: "top",
+                timeout: 1500,
+                title: "Error!",
+                text: error,
+                visible: true
+              }
             })
       }
     },

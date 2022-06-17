@@ -21,7 +21,17 @@
         </aside>
 
         <aside class="divcol">
-          <label>SECRET PHRASE</label>
+          <label>SECRET PHRASE 
+            <v-tooltip right>
+              <template v-slot:activator="{ on, attrs }">
+                <v-btn icon class="btn3" width="2em" height="2em" v-bind="attrs" v-on="on" @click="pasteSeedPhrase()">
+                  <v-icon style="color: #FFFFFF !important" size="1.2em">mdi-content-paste</v-icon>
+                </v-btn>
+              </template>
+              <span class="font2" style="color:#FFFFFF !important">Copy to Clipboard</span>
+              </v-tooltip>
+          </label>
+          
           <section class="contPhrase">
             <v-text-field
               v-for="(item,i) in dataPhrase" :key="i"
@@ -244,6 +254,22 @@ export default {
     }
   },
   methods: {
+    async pasteSeedPhrase() {
+      let paste = await navigator.clipboard.readText();
+      let seedPhrase = paste.split(' ')
+      this.dataPhrase[0].model = seedPhrase[0]
+      this.dataPhrase[1].model = seedPhrase[1]
+      this.dataPhrase[2].model = seedPhrase[2]
+      this.dataPhrase[3].model = seedPhrase[3]
+      this.dataPhrase[4].model = seedPhrase[4]
+      this.dataPhrase[5].model = seedPhrase[5]
+      this.dataPhrase[6].model = seedPhrase[6]
+      this.dataPhrase[7].model = seedPhrase[7]
+      this.dataPhrase[8].model = seedPhrase[8]
+      this.dataPhrase[9].model = seedPhrase[9]
+      this.dataPhrase[10].model = seedPhrase[10]
+      this.dataPhrase[11].model = seedPhrase[11]
+    },
     check () {
       this.colorTerms = this.selected 
     },

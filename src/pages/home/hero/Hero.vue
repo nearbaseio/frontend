@@ -29,7 +29,7 @@
       <aside class="slider relative">
         <div class="slide">
           <span v-for="(item, index) in dataSlide" :key="index" class="bold h11_em">
-            || {{ item.info }} <span class="light">#{{ item.number }} Ⓛ</span>
+            {{ item.info }} <span class="light">{{ item.number }}Ⓝ |</span>
           </span>
         </div>
       </aside>
@@ -52,52 +52,24 @@
 
 <script>
 import Parallax from 'parallax-js'
+import axios from 'axios'
+import * as nearAPI from 'near-api-js'
+const { connect, keyStores, WalletConnection, Contract, utils } = nearAPI
+
+const keyStore = new keyStores.BrowserLocalStorageKeyStore()
+const config = {
+        networkId: "testnet",
+        keyStore, 
+        nodeUrl: "https://rpc.testnet.near.org",
+        walletUrl: "https://wallet.testnet.near.org",
+        helperUrl: "https://helper.testnet.near.org",
+        explorerUrl: "https://explorer.testnet.near.org",
+      };
 export default {
   name: "hero",
   data() {
     return {
-      dataSlide: [
-        {
-          info: "Lorem Ipsum",
-          number: "9 0"
-        },
-        {
-          info: "Lorem Ipsum",
-          number: "9 0"
-        },
-        {
-          info: "Lorem Ipsum",
-          number: "9 0"
-        },
-        {
-          info: "Lorem Ipsum",
-          number: "9 0"
-        },
-        {
-          info: "Lorem Ipsum",
-          number: "9 0"
-        },
-        {
-          info: "Lorem Ipsum",
-          number: "9 0"
-        },
-        {
-          info: "Lorem Ipsum",
-          number: "9 0"
-        },
-        {
-          info: "Lorem Ipsum",
-          number: "9 0"
-        },
-        {
-          info: "Lorem Ipsum",
-          number: "9 0"
-        },
-        {
-          info: "Lorem Ipsum",
-          number: "9 0"
-        },
-      ],
+      dataSlide: [],
       dataControls: [
         {
           key: "prev",
@@ -117,10 +89,52 @@ export default {
       ],
     }
   },
-  mounted() {
+  async mounted() {
+    await this.priceNEAR()
+    this.getDomainsPurchased()
     this.parallax();
   },
   methods: {
+    formatPrice (price) {
+      return utils.format.formatNearAmount(price.toLocaleString('fullwide', { useGrouping: false }))
+    },
+    async priceNEAR(){
+      axios.get("https://api.binance.com/api/v3/ticker/24hr?symbol=NEARUSDT")
+        .then((response) => {
+          this.priceNear = response.data.lastPrice
+        })
+        .catch((e) => {
+          console.log(e)
+        })
+    },
+    async getDomainsPurchased() {
+      this.dataPurchased = []
+      const CONTRACT_NAME = 'contract.nearbase.testnet'
+      // connect to NEAR
+      const near = await connect(config)
+      // create wallet connection
+      const wallet = new WalletConnection(near)
+      const contract = new Contract(wallet.account(), CONTRACT_NAME, {
+        viewMethods: ['get_last_sold'],
+        sender: wallet.account()
+      })
+      await contract.get_last_sold({
+        number_domains: 20,
+      })
+        .then(async (response) => {
+          for (var i = 0; i < response.length; i++) {
+            var item = {}
+            item.id = response[i].id
+            item.info = response[i].domain
+            item.img = await require("@/assets/avatars/"+ (Math.floor((Math.random() * (6-1)) + 1)) +".png")
+            item.number = this.formatPrice(response[i].purchase_price)
+            item.dollar =  (item.near * this.priceNear).toFixed(2)
+            item.retired = response[i].retired
+            this.dataSlide.push(item)
+          }
+          this.dataSlide = this.dataSlide.reverse()
+        })
+    },
     parallax() {
       /* parallax pointer */
       if (window.innerWidth > 880) {

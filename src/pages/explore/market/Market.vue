@@ -40,7 +40,7 @@
               >
                 BUY NOW
               </v-btn>
-              <v-btn class="offerBtn h11_em">
+              <v-btn disabled class="offerBtn h11_em">
                 MAKE OFFER
               </v-btn>
             </template>

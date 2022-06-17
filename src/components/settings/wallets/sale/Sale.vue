@@ -23,13 +23,13 @@
           </v-btn>
           <v-btn 
             v-if="item.active"
-            :disabled="ResProgress"
+            :disabled="item.ResProgress"
             class="h11_em btnOutline"
             @click="clickPause(item)"
           >
             PAUSE SALE
             <v-progress-circular
-            v-if="ResProgress"
+            v-if="item.ResProgress"
             :size="18"
             :width="4"
             indeterminate
@@ -37,19 +37,19 @@
           </v-btn>
           <v-btn 
             v-else
-            :disabled="ResProgress"
+            :disabled="item.ResProgress"
             class="h11_em btnOutline"
             @click="clickPause(item)"
           >
             RESUME SALE
             <v-progress-circular
-            v-if="ResProgress"
+            v-if="item.ResProgress"
             :size="18"
             :width="4"
             indeterminate
             ></v-progress-circular>
           </v-btn>
-          <v-btn class="h11_em btn">
+          <v-btn class="h11_em btn" @click="modalPurchased=true; windowModal=1">
             CANCEL SALE
           </v-btn>
         </aside>
@@ -64,7 +64,7 @@
     >
       <v-card class="modalSale divcol">
         <v-toolbar color="#B322D8" style="color:#FFFFFF">
-          <v-btn icon dark @click="closeDialog">
+          <v-btn icon dark :disabled="changeProgress" @click="closeDialog">
             <v-icon style="color:#FFFFFF !important">mdi-close</v-icon>
           </v-btn>
 
@@ -88,7 +88,7 @@
 
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn @click="updateDomain()" class="btn3 h11_em">
+          <v-btn :disabled="changeProgress" @click="updateDomain()" class="btn3 h11_em">
             SAVE
             <v-progress-circular
               v-if="changeProgress"
@@ -99,7 +99,70 @@
           </v-btn>
         </v-card-actions>
         </v-card>
-    </v-dialog>
+      </v-dialog>
+      <v-dialog
+        v-model="modalPurchased"
+        :max-width="windowModal==1?450:900"
+        scrollable
+      >
+        <v-window v-model="windowModal" vertical>
+          <v-window-item :value="1">
+            <v-card class="modalPurchased divcol">
+              <h3 class="h7_em tcenter">Do you wish to continue</h3>
+              <p class="h10_em font2 tspace">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sint atque voluptatem consectetur animi accusantium adipisci repudiandae! At reiciendis, voluptate, repellat ducimus deleniti repudiandae esse dicta odio adipisci, dolor tempora quam?</p>
+              <aside class="center gap2">
+                <v-btn class="btn2" @click="modalPurchased=false">CANCEL</v-btn>
+                <v-btn 
+                  class="btn" 
+                  @click="withdrawDomain()"
+                >
+                  ACCEPT
+                </v-btn>
+              </aside>
+            </v-card>
+          </v-window-item>
+
+          <v-window-item :value="2">
+            <v-card class="modalPurchased divcol">
+              <v-form
+                ref="form"
+                v-model="valid"
+                lazy-validation
+              >
+                <aside class="divcol margin2bottom">
+                  <label class="acenter gap1">SECRET PHRASE
+                    <v-tooltip right>
+                      <template v-slot:activator="{ on, attrs }">
+                        <v-btn icon class="btn3" width="2em" height="2em" v-bind="attrs" v-on="on" @click="copyToClipBoard()">
+                          <v-icon style="color: #FFFFFF !important" size="1.2em">mdi-content-copy</v-icon>
+                        </v-btn>
+                      </template>
+                      <span class="font2" style="color:#FFFFFF !important">Copy to Clipboard</span>
+                    </v-tooltip>
+                  </label>
+                  <section class="contPhrase">
+                    <v-text-field
+                      v-for="(item,i) in dataPhrase" :key="i"
+                      v-model="item.model"
+                      solo
+                      hide-details
+                      disabled
+                    >
+                      <template v-slot:prepend>
+                        <span class="h11_em font2">{{i+1}}.</span>
+                      </template>
+                    </v-text-field>
+                  </section>
+                </aside>
+              </v-form>
+
+              <aside class="center">
+                <v-btn class="btn" @click="modalPurchased=false">ACCEPT</v-btn>
+              </aside>
+            </v-card>
+          </v-window-item>
+        </v-window>
+      </v-dialog>
   </section>
 </template>
 
@@ -124,12 +187,51 @@ export default {
   components: { Alerts },
   data() {
     return {
+      modalPurchased: false,
+      windowModal: 1,
       changeProgress: false,
-      ResProgress: false,
       dataSale: [],
       priceNear: null,
       modalSale: false,
       editedItem: {},
+      dataPhrase: [
+        {
+          model: null,
+        },
+        {
+          model: null,
+        },
+        {
+          model: null,
+        },
+        {
+          model: null,
+        },
+        {
+          model: null,
+        },
+        {
+          model: null,
+        },
+        {
+          model: null,
+        },
+        {
+          model: null,
+        },
+        {
+          model: null,
+        },
+        {
+          model: null,
+        },
+        {
+          model: null,
+        },
+        {
+          model: null,
+        },
+      ],
     }
   },
   async mounted () {
@@ -141,14 +243,13 @@ export default {
       return utils.format.formatNearAmount(price.toLocaleString('fullwide', { useGrouping: false }))
     },
     clickPause (item) {
-        this.ResProgress = true
+        item.ResProgress = true
         this.editedItem = item
         this.editedItem.status = !this.editedItem.active
-        this.updateDomain()
+        this.updateDomain(item)
     },
-    async updateDomain () {
-        console.log(this.dataSale)
-        this.progress = true
+    async updateDomain (item) {
+        this.changeProgress = true
         const CONTRACT_NAME = 'contract.nearbase.testnet'
         // connect to NEAR
         const near = await connect(config)
@@ -165,13 +266,15 @@ export default {
         })
           .then((response) => {
             this.$refs.alerts.Alerts('success', null, 'Updated domain');
-            this.progress = false
+            item.ResProgress = false
+            this.changeProgress = false
             this.getDomainsPurchased()
             this.closeDialog()
           }).catch((error) => {
             console.log(error)
             this.$refs.alerts.Alerts('cancel', null, error);
-            this.progress = false
+            item.ResProgress = false
+            this.changeProgress = false
           })
     },
     showDialog (item) {
@@ -212,6 +315,7 @@ export default {
             item.profile = response[i].user_seller
             item.dollar =  (item.price * this.priceNear).toFixed(2)
             item.active = response[i].is_active
+            item.ResProgress = false
             this.dataSale.push(item)
           }
           this.dataSale = this.dataSale.reverse()
