@@ -4,24 +4,15 @@
       v-for="(item, index) in dataAlerts" :key="index"
       v-model="item.model"
       centered
-      right
-      transition="slide-x-reverse-transition"
-      color="var(--clr-btn)"
+      top
+      transition="slide-Y-reverse-transition"
+      :style="`--color: ${item.color}`"
     >
-      <template v-slot:action="{ attrs }">
-        <v-btn class="h10_em semibolbold" color="red" text rounded v-bind="attrs" @click="item.model=false">
-          {{$t('close')}}
-        </v-btn>
-      </template>
-
-      <aside class="alert-content divcol">
-        <div class="divrow acenter">
-          <v-icon :style="`color: ${item.color} !important`" size="2.5rem">{{ item.icon }}</v-icon>
-          <h3 class="h8_em p bold" :style="`color: ${item.color} !important`">{{ $t(item.key) }}</h3>
-        </div>
-
-        <span class="h11_em semibold">{{ $t(item.desc) }}</span>
-      </aside>
+      <img :src="item.icon" :alt="`${item.key} Icon`">
+      <div class="divcol">
+        <h3 class="font1">{{$t(item.title)}}</h3>
+        <p class="font2 p">{{$t(item.desc)}}</p>
+      </div>
     </v-snackbar>
   </section>
 </template>
@@ -36,25 +27,29 @@ export default {
       dataAlerts: [
         {
           key: "success",
+          title: "success",
           desc: "textSuccess",
-          icon: "mdi-check-circle",
-          color: "#A4FDDF",
+          icon: require('@/assets/icons/success.svg'),
+          color: "#0F43D5",
           model: false,
         },
         {
           key: "cancel",
+          title: "cancel",
           desc: "textCancel",
-          icon: "mdi-close-circle",
-          color: "rgb(200, 0, 0)",
+          icon: require('@/assets/icons/cancel.svg'),
+          color: "#F16211",
           model: false,
         }
       ]
     };
   },
   methods: {
-    Alerts(key) {
+    Alerts(key, title, desc) {
       const index = this.dataAlerts.findIndex(data=>data.key==key);
       this.dataAlerts[index].model = true
+      if (title) {this.dataAlerts[index].title=title}
+      if (desc) {this.dataAlerts[index].desc=desc}
     },
   }
 };

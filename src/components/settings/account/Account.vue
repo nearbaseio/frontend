@@ -1,5 +1,6 @@
 <template>
   <v-card id="account" color="var(--clr-card-3)" style="display:flex">
+    <Alerts ref="alerts"></Alerts>
     <section>
       <aside class="divcol">
         <div class="space">
@@ -69,6 +70,7 @@
 </template>
 
 <script>
+import Alerts from '@/components/alerts/Alerts'
 import * as nearAPI from 'near-api-js'
 const { connect, keyStores, WalletConnection } = nearAPI
 
@@ -84,10 +86,10 @@ const config = {
 export default {
   name: "account",
   i18n: require("../i18n"),
+  components: { Alerts },
   data() {
     return {
       id: null,
-      snackbar: {},
       account: {},
       first_name: null,
       last_name: null,
@@ -146,30 +148,12 @@ export default {
         this.axios.post(url, this.account)
           .then((response) => {
             if (response.data){
-              this.snackbar = {
-                color: "green",
-                icon: "check_circle",
-                mode: "multi-line",
-                position: "top",
-                timeout: 1500,
-                title: "Éxito!",
-                text: "El perfil ha sido guardado",
-                visible: true
-              }
+              this.$refs.alerts.Alerts('success', null, 'El perfil ha sido guardado');
               this.getData()
             }
         }).catch((error) => {
           console.log(error)
-          this.snackbar = {
-            color: "red",
-            icon: "error",
-            mode: "multi-line",
-            position: "top",
-            timeout: 1500,
-            title: "Error!",
-            text: "Ha ocurrido algo",
-            visible: true
-          }
+          this.$refs.alerts.Alerts('cancel', null, 'Ha ocurrido algo');
         })
       }
     },
@@ -190,30 +174,12 @@ export default {
           .then((response) => {
             if (response.data){
               console.log(response.data)
-              this.snackbar = {
-                color: "green",
-                icon: "check_circle",
-                mode: "multi-line",
-                position: "top",
-                timeout: 1500,
-                title: "Éxito!",
-                text: "El perfil ha sido actualizado",
-                visible: true
-              }
+              this.$refs.alerts.Alerts('success', null, 'El perfil ha sido actualizado');
               this.getData()
             }
         }).catch((error) => {
           console.log(error)
-          this.snackbar = {
-            color: "red",
-            icon: "error",
-            mode: "multi-line",
-            position: "top",
-            timeout: 1500,
-            title: "Error!",
-            text: "Ha ocurrido algo",
-            visible: true
-          }
+          this.$refs.alerts.Alerts('cancel', null, 'Ha ocurrido algo');
         })
       }
     },

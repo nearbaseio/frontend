@@ -1,5 +1,6 @@
 <template>
   <section id="wallets" class="publishNew divcol gap2">
+    <Alerts ref="alerts"></Alerts>
     <h3 class="font1 normal">NEW WALLET FOR SALE</h3>
     <v-card class="cartaPublish divcol gap2" color="var(--clr-card-3)" style="display:flex">
       <v-form
@@ -142,6 +143,7 @@
 </template>
 
 <script>
+import Alerts from '@/components/alerts/Alerts'
 import * as nearAPI from 'near-api-js'
 import axios from 'axios'
 const { connect, keyStores, WalletConnection } = nearAPI
@@ -158,13 +160,13 @@ const config = {
 export default {
   name: "walletsPublish",
   i18n: require("../../i18n"),
+  components: { Alerts },
   data() {
     return {
       modalPublish: false,
       colorTerms: false,
       selected: false,
       progress: false,
-      snackbar: {},
       valid: true,
       domain: null,
       price: null,
@@ -284,69 +286,24 @@ export default {
               .then((response) => {
                 console.log(response)
                 if (response.status === 200){
-                  this.snackbar = {
-                      color: "green",
-                      icon: "check_circle",
-                      mode: "multi-line",
-                      position: "top",
-                      timeout: 1500,
-                      title: "Éxito!",
-                      text: "Published domain",
-                      visible: true
-                  }   
+                  this.$refs.alerts.Alerts('success', null, 'Published domain');
                   this.$router.push({ path: '/settings/wallets/sale' })         
                 } else if (response.status === 204){
-                    this.snackbar = {
-                      color: "red",
-                      icon: "error",
-                      mode: "multi-line",
-                      position: "top",
-                      timeout: 1500,
-                      title: "Error!",
-                      text: "Datos invalidos",
-                      visible: true
-                    }
-                  }  
+                  this.$refs.alerts.Alerts('cancel', null, 'Datos invalidos');
+                }  
                 this.progress = false
             }).catch((error) => {
               console.log(error)
-              this.snackbar = {
-                color: "red",
-                icon: "error",
-                mode: "multi-line",
-                position: "top",
-                timeout: 1500,
-                title: "Error!",
-                text: error,
-                visible: true
-              }
+              this.$refs.alerts.Alerts('cancel', null, error);
               this.progress = false
             })
           }
         } else {
-          this.snackbar = {
-              color: "red",
-              icon: "error",
-              mode: "multi-line",
-              position: "top",
-              timeout: 1500,
-              title: "Error!",
-              text: "Terminos y Condiciones",
-              visible: true
-            }
+          this.$refs.alerts.Alerts('cancel', null, 'Terminos y Condiciones');
           this.progress = false
         }
       } else {
-        this.snackbar = {
-              color: "red",
-              icon: "error",
-              mode: "multi-line",
-              position: "top",
-              timeout: 1500,
-              title: "Error!",
-              text: "Ingrese los valores requeridos",
-              visible: true
-            }
+        this.$refs.alerts.Alerts('cancel', null, 'Ingrese los valores requeridos');
         this.progress = false
       }
     },

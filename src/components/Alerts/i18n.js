@@ -1,18 +1,16 @@
 module.exports = {
   messages: {
     ES: {
-      close: "Cerrar",
-      success: "Aprobado",
-      textSuccess: "Operacion completada exitosamente",
-      cancel: "Denegado",
-      textCancel: "Operacion fallida",
+      success: "ÉXITO!",
+      textSuccess: "Tus cambios han sido guardados satisfactoriamente",
+      cancel: "ERROR!",
+      textCancel: "Algo extraño ha ocurrido, intentalo denuevo",
     },
     US: {
-      close: "Close",
-      success: "Approved",
-      textSuccess: "Operation completed successfully",
-      cancel: "Denied",
-      textCancel: "Failed operation",
+      success: "SUCCESS!",
+      textSuccess: "Your changes have been successfully saved",
+      cancel: "ERROR!",
+      textCancel: "Something strange has happened, try again",
     }
   }
 }

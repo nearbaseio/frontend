@@ -1,5 +1,7 @@
 <template>
   <section id="header">
+    <MenuHeader ref="menu"></MenuHeader>
+    <SettingsMobile ref="settingsMobile"></SettingsMobile>
     <!-- mobile -->
     <v-col class="contavatarmobile vermobile">
       <v-btn v-if="mobile.login" class="loginbtn buttons h11_em" @click="signIn()">
@@ -47,77 +49,75 @@
     <div class="sombra eliminarmobile" />
 
     <v-app-bar
-    id="headerApp"
-    color="var(--clr-card)"
-    height="100px"
-    fixed
-    v-if="navigationMobile"
-  >
-    <v-row>
-      <v-col class="contheader centermobile paddtopdelmobile">
-        <aside class="sectleft acenter eliminarmobile">
-          <!-- logo -->
-          <router-link :to="('/')" class="eliminarmobile">
-            <img class="logo" :src="`${$store.state.baseURL}themes/${$store.state.theme}/logo.png`"
-              alt="Logo">
-          </router-link>
-        </aside>
+      id="headerApp"
+      color="var(--clr-card)"
+      height="100px"
+      fixed
+      v-if="navigationMobile"
+    >
+      <v-row>
+        <v-col class="contheader centermobile paddtopdelmobile">
+          <aside class="sectleft acenter eliminarmobile">
+            <!-- logo -->
+            <router-link :to="('/')" class="eliminarmobile">
+              <img class="logo" :src="`${$store.state.baseURL}themes/${$store.state.theme}/logo.png`"
+                alt="Logo">
+            </router-link>
+          </aside>
 
-        <!-- content -->
-        <aside class="sectright divrow">
-          <v-text-field
-            prepend-inner-icon="mdi-magnify"
-            :hide-details="true"
-          >
-          </v-text-field>
-          <div class="contbuttons eliminarmobile center">
-            <v-btn v-if="themeButton" icon @click="CambiarTheme('dark'), CambiarTheme2('dark'), ThemeButtonMobile('dark')"
-              class="themeButtonDark">
-              <img src="@/assets/icons/moon.png" alt="theme button">
-            </v-btn>
-            <v-btn v-else icon @click="CambiarTheme('light'), CambiarTheme2('light'), ThemeButtonMobile('light')"
-              class="themeButtonLight">
-              <img src="@/assets/icons/sun.png" alt="theme button">
-            </v-btn>
-
-            <v-btn
-              v-if="!user"
-              icon
-              class="animation-left logoutDesktop"
-              @click="$router.push('/settings/account')"
+          <!-- content -->
+          <aside class="sectright divrow">
+            <v-text-field
+              prepend-inner-icon="mdi-magnify"
+              :hide-details="true"
             >
-              <v-badge
-                overlap
-                :content="messages"
-                :value="messages"
-                color="var(--clr-badge)"
-                class="avatar"
+            </v-text-field>
+            <div class="contbuttons eliminarmobile center">
+              <v-btn v-if="themeButton" icon @click="CambiarTheme('dark'), CambiarTheme2('dark'), ThemeButtonMobile('dark')"
+                class="themeButtonDark">
+                <img src="@/assets/icons/moon.png" alt="theme button">
+              </v-btn>
+              <v-btn v-else icon @click="CambiarTheme('light'), CambiarTheme2('light'), ThemeButtonMobile('light')"
+                class="themeButtonLight">
+                <img src="@/assets/icons/sun.png" alt="theme button">
+              </v-btn>
+
+              <v-btn
+                v-if="!user"
+                icon
+                class="animation-left logoutDesktop"
+                @click="$router.push('/settings/account')"
               >
-                <v-avatar
-                  size="60"
+                <v-badge
+                  overlap
+                  :content="messages"
+                  :value="messages"
+                  color="var(--clr-badge)"
+                  class="avatar"
                 >
-                  <img
-                    alt="Avatar"
-                    :src="this.perfil"
+                  <v-avatar
+                    size="60"
                   >
-                </v-avatar>
-              </v-badge>
-            </v-btn>
-            <v-btn v-if="user" class="buttons h11_em" @click="signIn()">
-              LOG IN WITH NEAR
-              <v-icon medium>mdi-arrow-right</v-icon>
-            </v-btn>
-            <v-btn v-else class="buttons h11_em" @click="signOut()">
-              LOG OUT
-              <v-icon medium>mdi-arrow-right</v-icon>
-            </v-btn>
-          </div>
-        </aside>
-      </v-col>
-    </v-row>
-  </v-app-bar>
-  <MenuHeader ref="menu"></MenuHeader>
-  <SettingsMobile ref="settingsMobile"></SettingsMobile>
+                    <img
+                      alt="Avatar"
+                      :src="this.perfil"
+                    >
+                  </v-avatar>
+                </v-badge>
+              </v-btn>
+              <v-btn v-if="user" class="buttons h11_em" @click="signIn()">
+                LOG IN WITH NEAR
+                <v-icon medium>mdi-arrow-right</v-icon>
+              </v-btn>
+              <v-btn v-else class="buttons h11_em" @click="signOut()">
+                LOG OUT
+                <v-icon medium>mdi-arrow-right</v-icon>
+              </v-btn>
+            </div>
+          </aside>
+        </v-col>
+      </v-row>
+    </v-app-bar>
   </section>
 </template>
 
@@ -142,10 +142,7 @@ const config = {
 
 export default {
   name: "header",
-  components: {
-    MenuHeader,
-    SettingsMobile
-  },
+  components: { MenuHeader, SettingsMobile },
   i18n: require("./i18n"),
   created() {
     this.element = document.getElementById("theme");

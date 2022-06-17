@@ -1,5 +1,7 @@
 <template>
   <section id="wallets" class="sale divcol gap2">
+    <Alerts ref="alerts"></Alerts>
+
     <aside v-for="(item, index) in dataSale" :key="index" class="card-wrapper font2 relative">
       <v-card class="cartaTop" style="display:flex">
         <img :src="item.img" alt="Referencial Image">
@@ -62,7 +64,7 @@
     >
       <v-card class="modalSale divcol">
         <v-toolbar color="#B322D8" style="color:#FFFFFF">
-          <v-btn icon dark @click="closeDialog" :disabled="changeProgress">
+          <v-btn icon dark @click="closeDialog">
             <v-icon style="color:#FFFFFF !important">mdi-close</v-icon>
           </v-btn>
 
@@ -86,11 +88,7 @@
 
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn 
-            :disabled="changeProgress"
-            @click="updateDomain()" 
-            class="btn3 h11_em"
-          >
+          <v-btn @click="updateDomain()" class="btn3 h11_em">
             SAVE
             <v-progress-circular
               v-if="changeProgress"
@@ -106,6 +104,7 @@
 </template>
 
 <script>
+import Alerts from '@/components/alerts/Alerts'
 import axios from 'axios'
 import * as nearAPI from 'near-api-js'
 const { connect, keyStores, WalletConnection, Contract, utils } = nearAPI
@@ -122,11 +121,11 @@ const config = {
 export default {
   name: "walletsSale",
   i18n: require("../../i18n"),
+  components: { Alerts },
   data() {
     return {
       changeProgress: false,
       ResProgress: false,
-      snackbar: {},
       dataSale: [],
       priceNear: null,
       modalSale: false,
@@ -148,8 +147,7 @@ export default {
         this.updateDomain()
     },
     async updateDomain () {
-        this.changeProgress = true
-        this.snackbar = {}
+        console.log(this.dataSale)
         this.progress = true
         const CONTRACT_NAME = 'contract.nearbase.testnet'
         // connect to NEAR
@@ -166,34 +164,14 @@ export default {
           is_active: this.editedItem.status
         })
           .then((response) => {
-            this.snackbar = {
-                color: "green",
-                icon: "check_circle",
-                mode: "multi-line",
-                position: "top",
-                timeout: 1500,
-                title: "Éxito!",
-                text: "Updated domain",
-                visible: true
-            }        
-            this.ResProgress = false
-            this.changeProgress = false
+            this.$refs.alerts.Alerts('success', null, 'Updated domain');
+            this.progress = false
             this.getDomainsPurchased()
             this.closeDialog()
           }).catch((error) => {
             console.log(error)
-            this.snackbar = {
-              color: "red",
-              icon: "error",
-              mode: "multi-line",
-              position: "top",
-              timeout: 1500,
-              title: "Error!",
-              text: error,
-              visible: true
-            }
-            this.ResProgress = false
-            this.changeProgress = false
+            this.$refs.alerts.Alerts('cancel', null, error);
+            this.progress = false
           })
     },
     showDialog (item) {
