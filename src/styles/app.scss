@@ -35,6 +35,10 @@
 }
 
 // v-dialogs
+.v-dialog {
+  overscroll-behavior: contain;
+}
+
 .v-dialog--scrollable {
   @include media(max, small) {margin: 0 !important; min-height: 100% !important}
   padding: 1em;
