@@ -213,6 +213,23 @@ export default {
     this.UserState();
     this.NavigationState();
     this.LogState();
+
+    /* search function */
+    const search = document.getElementById('search')
+    const filterItems = document.querySelectorAll('.filterItems')
+    search.addEventListener('keyup',e=>{
+      filterItems.forEach(item=>{
+        item.textContent.toLowerCase().includes(e.target.value.toLowerCase())
+        ?item.style.display='block':item.style.display='none'
+        if (e.key=='Escape') {e.target.value = ''}
+        // to delete at empty text field
+        if (e.target.value == '') {item.style.display='none'}
+      })
+    })
+    // to delete for default
+    document.querySelectorAll('.filterItems').forEach(item=>{
+      if (search.textContent == '') {item.style.display='none'}
+    })
   },
   methods: {
     search() {
