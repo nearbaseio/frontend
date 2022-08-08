@@ -257,12 +257,13 @@ export default {
       this.accountId= wallet.getAccountId()
 
       if (wallet.isSignedIn()) {
-        const url = "https://nearbase.io:85/nearbase/api/v1/profile/?wallet=" + this.accountId
+        //const url = "https://nearbase.io:85/nearbase/api/v1/profile/?wallet=" + this.accountId
+        const url = "http://127.0.0.1:8000/api/v1/profile/?wallet=" + this.accountId
         this.axios.defaults.headers.common.Authorization='token'
         this.axios.get(url)
           .then((response) => {
             if (response.data[0]){
-              this.avatar = response.data[0].avatar
+              this.avatar = response.data[0].avatar || require("@/assets/user/avatar.png")
               this.$store.dispatch("Avatar", {avatar: this.avatar})
             }
         }).catch((error) => {

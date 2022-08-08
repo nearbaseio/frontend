@@ -1,6 +1,7 @@
 <template>
   <v-footer id="footer" :color="colorFooter" :absolute="footerProperty"
     :fixed="!footerProperty" :padless="!footerProperty">
+    <Alerts ref="alerts"></Alerts>
     <v-row v-if="navigationMobile" no-gutters class="align">
       <!-- content -->
       <section class="fill_w space gap2 divcolmobile">
@@ -30,7 +31,7 @@
 
             <template v-if="item.links">
               <a v-for="(item2, index) in item.links" :key="index"
-                :href="item.to" class="h11_em hover_line"
+                :href="item2.to" class="h11_em hover_line"
               >
                 {{ item2.link }}
               </a>
@@ -50,7 +51,7 @@
 
                 <template v-slot:append>
                   <v-btn color="var(--clr-text-btn)" rounded class="h12_em"
-                    @click="SendEmail()">SIGN UP</v-btn>
+                    @click="SendEmail()">SUBSCRIBE</v-btn>
                 </template>
               </v-text-field>
             </template>
@@ -92,6 +93,7 @@
 </template>
 
 <script>
+import Alerts from '@/components/alerts/Alerts'
 let ubicacionPrincipal = window.pageYOffset;
 let resizeTimeout;
 function resizeThrottler(actualResizeHandler) {
@@ -106,6 +108,7 @@ function resizeThrottler(actualResizeHandler) {
   }
 }
 export default {
+  components: { Alerts },
   data() {
     return {
       dataRedes: [
@@ -132,35 +135,35 @@ export default {
           title: "featured",
           links: [
             {
-              link: "Trending",
-              to: "#"
+              link: "Featured",
+              to: "#/"
             },
-            {
-              link: "Top",
-              to: "#"
-            },
-            {
-              link: "Collectibles",
-              to: "#"
-            },
+            // {
+            //   link: "Top",
+            //   to: "#"
+            // },
+            // {
+            //   link: "Collectibles",
+            //   to: "#"
+            // },
           ]
         },
         {
           deletemobile: true,
-          title: "explore",
+          title: "market",
           links: [
             {
-              link: "Trending",
-              to: "#"
+              link: "Market",
+              to: "#/explore/market"
             },
-            {
-              link: "Top",
-              to: "#"
-            },
-            {
-              link: "Collectibles",
-              to: "#"
-            },
+            // {
+            //   link: "Top",
+            //   to: "#"
+            // },
+            // {
+            //   link: "Collectibles",
+            //   to: "#"
+            // },
           ]
         },
         {
@@ -234,7 +237,25 @@ export default {
   },
   methods: {
     SendEmail() {
-      alert('send')
+      const url = "api/v1/set-email-suscribe"
+      let item = {
+        email: this.input
+      }
+      this.axios.post(url, item)
+        .then((response) => {
+          console.log(response)
+          if (response.status === 200){
+            this.$refs.alerts.Alerts('success', null, 'Published domain');
+            this.$router.push({ path: '/settings/wallets/sale' })         
+          } else if (response.status === 204){
+            this.$refs.alerts.Alerts('cancel', null, 'Email invalido');
+          } else {
+            this.$refs.alerts.Alerts('cancel', null, 'Algo ocurrio');
+          }  
+        }).catch((error) => {
+          console.log(error)
+          this.$refs.alerts.Alerts('cancel', null, error)
+        })
     },
     scrollListener() {
       resizeThrottler(this.OcultarNavigation);
