@@ -36,7 +36,7 @@
 </template>
 
 <script>
-import axios from 'axios'
+//import axios from 'axios'
 import * as nearAPI from 'near-api-js'
 const { connect, keyStores, WalletConnection, Contract, utils } = nearAPI
 
@@ -69,10 +69,9 @@ export default {
       return utils.format.formatNearAmount(price.toLocaleString('fullwide', { useGrouping: false }))
     },
     async priceNEAR(){
-      await axios.get("https://api.binance.com/api/v3/ticker/24hr?symbol=" + "NEAR" + "USDT")
+      await this.axios.get("https://nearblocks.io/api/near-price")
         .then((response) => {
-          this.priceNear = response.data.lastPrice
-          console.log("price", this.priceNear)
+          this.priceNear = response.data.usd
         })
         .catch((e) => {
           console.log(e)
@@ -105,7 +104,10 @@ export default {
             item.retired = response[i].retired
             this.dataSold.push(item)
           }
-          this.dataSold = this.dataSold.reverse()
+          if (this.$store.state.user.filter === 'filter by recent') {
+            console.log("Hola")
+            this.dataSold = this.dataSold.reverse()
+          }
         })
     },
   },

@@ -68,8 +68,10 @@
           <!-- content -->
           <aside class="sectright divrow">
             <v-text-field
+              id="search"
               prepend-inner-icon="mdi-magnify"
               :hide-details="true"
+              v-on:input="search()"
             >
             </v-text-field>
             <div class="contbuttons eliminarmobile center">
@@ -213,6 +215,22 @@ export default {
     this.LogState();
   },
   methods: {
+    search() {
+      this.$router.push('/explore/market');
+      const search = document.getElementById('search')
+      const filterItems = document.querySelectorAll('.filterItems')
+      const filterContent = document.querySelector('.filterContent')
+      console.log(filterContent)
+      search.addEventListener('keyup',e=>{
+        filterItems.forEach(item=>{
+          item.textContent.toLowerCase().includes(e.target.value.toLowerCase())
+          ?item.style.display='block':item.style.display='none'
+          if (e.key=='Escape') {e.target.value = ''}
+          // // to delete at empty text field
+          // if (e.target.value == '') {item.style.display='none'}
+        })
+      })
+    },
     async getData () {
       this.account = {}
       // connect to NEAR
@@ -222,7 +240,7 @@ export default {
       this.accountId= wallet.getAccountId()
 
       if (wallet.isSignedIn()) {
-        const url = "api/v1/profile/?wallet=" + this.accountId
+        const url = "https://nearbase.io:85/nearbase/api/v1/profile/?wallet=" + this.accountId
         this.axios.defaults.headers.common.Authorization='token'
         this.axios.get(url)
           .then((response) => {

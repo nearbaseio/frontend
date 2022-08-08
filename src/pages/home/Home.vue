@@ -1,7 +1,7 @@
 <template>
   <section id="home">
     <Hero ref="hero"></Hero>
-    <Featured ref="featured"></Featured>
+    <!-- <Featured ref="featured"></Featured> -->
     <Top ref="top"></Top>
     <MeetNear ref="meetnear"></MeetNear>
   </section>

@@ -155,7 +155,7 @@
 <script>
 import Alerts from '@/components/alerts/Alerts'
 import * as nearAPI from 'near-api-js'
-import axios from 'axios'
+//import axios from 'axios'
 const { connect, keyStores, WalletConnection } = nearAPI
 
 const keyStore = new keyStores.BrowserLocalStorageKeyStore()
@@ -307,8 +307,8 @@ export default {
             item.price = this.price
             item.coin = this.filterCrypto.title
 
-            const url = "http://localhost:3080/api/v1/publish-domain/"
-            axios.post(url, item)
+            const url = "api/v1/publish-domain/"
+            this.axios.post(url, item)
               .then((response) => {
                 console.log(response)
                 if (response.status === 200){

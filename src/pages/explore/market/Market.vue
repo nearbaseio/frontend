@@ -1,7 +1,7 @@
 <template>
   <section class="contTop">
     <aside v-for="(item, index) in dataTop" :key="index"
-      :class="{colspan:item.active}" class="card-wrapper font2 center divcol">
+      :class="{colspan:item.active}" class="filterItems card-wrapper font2 center divcol">
       <v-card class="cartaTop relative" style="display:flex" :class="{active: item.active}">
         <img :class="{active:item.active}" :src="item.img" alt="Referencial Image">
         <div v-if="item.active" class="contText divcol jcenter">
@@ -51,7 +51,7 @@
   </section>
 </template>
 <script>
-import axios from 'axios'
+//import axios from 'axios'
 import * as nearAPI from 'near-api-js'
 const { connect, keyStores, WalletConnection, Contract, utils } = nearAPI
 
@@ -88,9 +88,9 @@ export default {
       return utils.format.formatNearAmount(price.toLocaleString('fullwide', { useGrouping: false }))
     },
     async priceNEAR(){
-      await axios.get("https://api.binance.com/api/v3/ticker/24hr?symbol=" + "NEAR" + "USDT")
+      await this.axios.get("https://nearblocks.io/api/near-price")
         .then((response) => {
-          this.priceNear = response.data.lastPrice
+          this.priceNear = response.data.usd
         })
         .catch((e) => {
           console.log(e)
@@ -132,8 +132,8 @@ export default {
       const wallet = new WalletConnection(near)
       this.accountId = wallet.getAccountId()
       
-        const url = "http://127.0.0.1:8000/api/v1/market/"
-        axios.get(url)
+        const url = "api/v1/market/"
+        this.axios.get(url)
           .then(async (response) => {
             if (response.data) {
               for (var i = 0; i < response.data.length; i++) {

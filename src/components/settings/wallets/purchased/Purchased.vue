@@ -96,7 +96,6 @@
 </template>
 
 <script>
-import axios from 'axios'
 import * as nearAPI from 'near-api-js'
 const { connect, keyStores, WalletConnection, Contract, utils } = nearAPI
 
@@ -187,9 +186,9 @@ export default {
       return utils.format.formatNearAmount(price.toLocaleString('fullwide', { useGrouping: false }))
     },
     async priceNEAR(){
-      axios.get("https://api.binance.com/api/v3/ticker/24hr?symbol=NEARUSDT")
+      await this.axios.get("https://nearblocks.io/api/near-price")
         .then((response) => {
-          this.priceNear = response.data.lastPrice
+          this.priceNear = response.data.usd
         })
         .catch((e) => {
           console.log(e)
@@ -210,8 +209,9 @@ export default {
         item.privateKey = localStorage.getItem("near-api-js:keystore:"+wallet.getAccountId()+":testnet");
         item.id_domain = this.domainItem.id
 
-        const url = "http://localhost:3080/api/v1/withdraw-domain/"
-        axios.post(url, item)
+        //this.axios.defaults.headers.common.Authorization='token'
+        const url = "api/v1/withdraw-domain/"
+        this.axios.post(url, item)
               .then((response) => {
                 console.log(response)
                 if (response.status === 200){
@@ -284,7 +284,10 @@ export default {
             item.retired = response[i].retired
             this.dataPurchased.push(item)
           }
-          this.dataPurchased = this.dataPurchased.reverse()
+          if (this.$store.state.user.filter === 'filter by recent') {
+            console.log("Hola")
+            this.dataPurchased = this.dataPurchased.reverse()
+          }
         })
     },
   },

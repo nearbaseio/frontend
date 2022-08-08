@@ -35,7 +35,7 @@
       </aside>
     </v-col>
 
-    <aside class="center sectionmobile">
+    <!-- <aside class="center sectionmobile">
       <h2 class="relative font1 h5_emmobile" style="letter-spacing: 0.21em">FEATURED
         <div class="controls">
           <v-btn v-for="(item, index) in dataControls" :key="index"
@@ -46,7 +46,7 @@
           </v-btn>
         </div>
       </h2>
-    </aside>
+    </aside> -->
   </section>
 </template>
 
@@ -99,9 +99,9 @@ export default {
       return utils.format.formatNearAmount(price.toLocaleString('fullwide', { useGrouping: false }))
     },
     async priceNEAR(){
-      axios.get("https://api.binance.com/api/v3/ticker/24hr?symbol=NEARUSDT")
+      await this.axios.get("https://nearblocks.io/api/near-price")
         .then((response) => {
-          this.priceNear = response.data.lastPrice
+          this.priceNear = response.data.usd
         })
         .catch((e) => {
           console.log(e)

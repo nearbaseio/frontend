@@ -35,6 +35,13 @@
           --size: 3em;
           width: var(--size) !important;
           height: var(--size) !important;
+          *{
+            width: 100%;
+            height: 100%;
+          }
+          .v-input {
+            display: none;
+          }
         }
       }
       h3 {

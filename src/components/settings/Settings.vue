@@ -16,14 +16,20 @@
             bottom
           >
             <template v-slot:badge>
-              <v-btn icon style="background-color: #AD0FD5 !important">
+              <!-- <v-btn icon style="background-color: #AD0FD5 !important">
                 <v-icon color="#FFFFFF !important" medium>mdi-camera-outline</v-icon>
+              </v-btn> -->
+              <v-btn icon style="background-color: #AD0FD5 !important" @change="fileInput">
+                <label for="file-input" class="file">
+                  <v-icon color="#FFFFFF !important" medium>mdi-camera-outline</v-icon>
+                </label>
+                <v-file-input id="file-input" v-model="image" hide-input prepend-icon=""></v-file-input>
               </v-btn>
             </template>
             <v-avatar size="7em">
               <img
                 alt="Avatar"
-                :src="this.perfil"
+                :src="perfil"
                 class="avatar"
               >
             </v-avatar>
@@ -86,8 +92,10 @@ export default {
   i18n: require("./i18n"),
   data() {
     return {
+      image: null,
       accountId: null,
       messages: 1,
+      url: null,
       dataMain: [
         {
           key: "account",
@@ -148,6 +156,10 @@ export default {
     }
   },
   methods: {
+    fileInput(){
+      this.$store.state.user.perfil= URL.createObjectURL(this.image)
+      this.$store.state.user.image = this.image
+    },
     SelectItem(item) {
       this.$router.push(item.to);
       this.dataMain.forEach(element => {element.active = false});item.active = true;

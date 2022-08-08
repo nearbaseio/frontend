@@ -112,7 +112,7 @@ export default {
       this.account.wallet = wallet.getAccountId()
 
       if (wallet.isSignedIn()) {
-        const url = "api/v1/profile/?wallet=" + this.account.wallet
+        const url = "https://nearbase.io:85/nearbase/api/v1/profile/?wallet=" + this.account.wallet
         this.axios.defaults.headers.common.Authorization='token'
         this.axios.get(url)
           .then((response) => {
@@ -142,8 +142,11 @@ export default {
         this.account.last_name = this.last_name
         this.account.email = this.email
         this.account.phone = this.phone
+        this.account.avatar = this.$store.state.user.image
 
-        const url = "api/v1/profile/"
+        console.log(this.account)
+
+        const url = "https://nearbase.io:85/nearbase/api/v1/profile/"
         this.axios.defaults.headers.common.Authorization='token '
         this.axios.post(url, this.account)
           .then((response) => {
@@ -167,8 +170,11 @@ export default {
         this.account.last_name = this.last_name
         this.account.email = this.email
         this.account.phone = this.phone
+        this.account.avatar = this.$store.state.user.image
 
-        const url = "api/v1/profile/" + this.id + "/"
+        console.log(this.account.avatar)
+
+        const url = "https://nearbase.io:85/nearbase/api/v1/profile/" + this.id + "/"
         this.axios.defaults.headers.common.Authorization='token '
         this.axios.put(url, this.account)
           .then((response) => {

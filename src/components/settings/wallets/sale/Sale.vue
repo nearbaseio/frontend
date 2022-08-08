@@ -1,7 +1,6 @@
 <template>
   <section id="wallets" class="sale divcol gap2">
     <Alerts ref="alerts"></Alerts>
-
     <aside v-for="(item, index) in dataSale" :key="index" class="card-wrapper font2 relative">
       <v-card class="cartaTop" style="display:flex">
         <img :src="item.img" alt="Referencial Image">
@@ -88,7 +87,7 @@
 
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn :disabled="changeProgress" @click="updateDomain()" class="btn3 h11_em">
+          <v-btn :disabled="changeProgress" @click="updateDomain(null)" class="btn3 h11_em">
             SAVE
             <v-progress-circular
               v-if="changeProgress"
@@ -168,7 +167,7 @@
 
 <script>
 import Alerts from '@/components/alerts/Alerts'
-import axios from 'axios'
+//import axios from 'axios'
 import * as nearAPI from 'near-api-js'
 const { connect, keyStores, WalletConnection, Contract, utils } = nearAPI
 
@@ -266,15 +265,20 @@ export default {
         })
           .then((response) => {
             this.$refs.alerts.Alerts('success', null, 'Updated domain');
-            item.ResProgress = false
             this.changeProgress = false
             this.getDomainsPurchased()
             this.closeDialog()
+            if (item) {
+              item.ResProgress = false
+            }
           }).catch((error) => {
             console.log(error)
             this.$refs.alerts.Alerts('cancel', null, error);
-            item.ResProgress = false
+            //item.ResProgress = false
             this.changeProgress = false
+            if (item) {
+              item.ResProgress = false
+            }
           })
     },
     showDialog (item) {
@@ -283,9 +287,9 @@ export default {
       this.modalSale = !this.modalSale
     },
     async priceNEAR(){
-      await axios.get("https://api.binance.com/api/v3/ticker/24hr?symbol=" + "NEAR" + "USDT")
+      await this.axios.get("https://nearblocks.io/api/near-price")
         .then((response) => {
-          this.priceNear = response.data.lastPrice
+          this.priceNear = response.data.usd
         })
         .catch((e) => {
           console.log(e)
@@ -318,7 +322,9 @@ export default {
             item.ResProgress = false
             this.dataSale.push(item)
           }
-          this.dataSale = this.dataSale.reverse()
+          if (this.$store.state.user.filter === 'filter by recent') {
+            this.dataSale = this.dataSale.reverse()
+          }
         })
     },
     async getData () {
@@ -331,8 +337,8 @@ export default {
         userSeller: wallet.getAccountId()
       }
       if (wallet.isSignedIn()) {
-        const url = "http://localhost:3080/api/v1/get-domains"
-        axios.post(url, item)
+        const url = "api/v1/get-domains"
+        this.axios.post(url, item)
           .then(async (response) => {
             if (response.data) {
               this.dataSale = []
@@ -347,6 +353,10 @@ export default {
                 item.dollar =  (response.data[i].price * this.priceNear).toFixed(2)
                 this.dataSale.push(item)
               }  
+              if (this.$store.state.user.filter === 'filter by recent') {
+                console.log("Hola")
+                this.dataPurchased = this.dataPurchased.reverse()
+              }
             }
         }).catch((error) => {
           console.log(error)
