@@ -7,7 +7,7 @@
           <h3 class="font1 h6_em not_typography">{{ item.title }}</h3>
           <span class="h11_em">
             by <a href="#" class="bold">{{ item.user_seller }}</a><br>
-            published on <strong>{{ item.date }}</strong>
+            <!-- published on <strong>{{ item.date }}</strong> -->
           </span>
         </div>
       </v-card>

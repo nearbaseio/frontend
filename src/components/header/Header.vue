@@ -173,7 +173,7 @@ export default {
       },
       user: true,
       navigationMobile: true,
-      messages: 1,
+      messages: 0,
       toggle: require("@/assets/icons/toggle.png"),
       themeButton: true,
       dataHeader: [

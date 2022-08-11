@@ -5,6 +5,7 @@
   // // // sale // // // 
   // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // /
   &.sale {
+    margin-top: 0;
     @media (max-width: 1000px) {font-size: 14px !important}
     .card-wrapper {
       letter-spacing: 0.07em;
@@ -39,5 +40,10 @@
 .modalSale {
   .v-toolbar {
     border-radius: 50px / 100px !important;
+  }
+  .v-card {
+    div.divcol {
+      padding-inline: 16px
+    }
   }
 }

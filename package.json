@@ -17,6 +17,7 @@
     "core-js": "^3.10.1",
     "css-loader": "^4.3.0",
     "font-awesome": "^4.7.0",
+    "moment": "^2.29.4",
     "near-api-js": "^0.44.2",
     "parallax-js": "^3.1.0",
     "vanilla-tilt": "^1.7.2",

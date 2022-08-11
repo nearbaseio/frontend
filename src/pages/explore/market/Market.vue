@@ -1,5 +1,5 @@
 <template>
-  <section class="contTop">
+  <section v-if="dataTop.length != 0" class="contTop">
     <aside v-for="(item, index) in dataTop" :key="index"
       :class="{colspan:item.active}" class="filterItems card-wrapper font2 center divcol">
       <v-card class="cartaTop relative" style="display:flex" :class="{active: item.active}">
@@ -49,10 +49,20 @@
       </v-card>
     </aside>
   </section>
+  <section v-else align="center" justify="center">
+    <v-progress-circular
+      :size="110"
+      :width="10"
+      indeterminate
+      color="white"
+    ></v-progress-circular>
+  </section>
 </template>
 <script>
 //import axios from 'axios'
 import * as nearAPI from 'near-api-js'
+import moment from 'moment';
+
 const { connect, keyStores, WalletConnection, Contract, utils } = nearAPI
 
 const keyStore = new keyStores.BrowserLocalStorageKeyStore()
@@ -118,7 +128,7 @@ export default {
             item.profile = response[i].user_seller
             item.dollar =  (item.price * this.priceNear).toFixed(2)
             item.active  = false
-            item.date = response[i].date_fech,
+            item.date = moment(response[i].date_time/1000000).format('DD/MM/YYYY'),
             item.status = response[i].is_active
             console.log(item)
             this.dataTop.push(item)

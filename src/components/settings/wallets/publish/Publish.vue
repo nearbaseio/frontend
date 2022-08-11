@@ -64,6 +64,39 @@
             ></v-text-field>
           </div>
           <div class="divcol">
+            <label for="crypto">POST TYPE</label>
+            <v-select
+              v-model="filterExpo.title"
+              disabled
+              :items="filterExpo.by"
+              item-text="crypto"
+              item-value="crypto"
+              id="crypto"
+              solo
+              hide-details
+              :menu-props="{ bottom: true, offsetY: true }"
+              :rules="rules.date"
+            >
+              <template v-slot:append>
+                <v-btn icon class="buttons-icon">
+                  <v-icon x-small>mdi-arrow-down</v-icon>
+                </v-btn>
+              </template>
+
+              <template v-slot:selection="slotProps">
+                <span class="cryptoSelect">
+                  {{ slotProps.item.crypto }}
+                </span>
+              </template>
+
+              <template v-slot:item="slotProps">
+                <span class="cryptoSelect">
+                  {{ slotProps.item.crypto }}
+                </span>
+              </template>
+            </v-select>
+          </div>
+          <div class="divcol">
             <label for="crypto">SELECT CRYPTO</label>
             <v-select
               v-model="filterCrypto.title"
@@ -237,6 +270,17 @@ export default {
           {
             img: require("@/assets/crypto/eth.svg"),
             crypto: "NEAR",
+          },
+        ],
+      },
+      filterExpo: {
+        title: "Classic (FREE)",
+        by: [
+          {
+            crypto: "Classic (FREE)",
+          },
+          {
+            crypto: "Premium (1 NEAR)",
           },
         ],
       },
