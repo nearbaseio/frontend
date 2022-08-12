@@ -18,7 +18,7 @@
           <v-btn 
             class="h11_em btnOutline"
             @click="showDialog(item)">
-            CHANGE PRICE
+            EDIT POST
           </v-btn>
           <v-btn 
             v-if="item.active"

@@ -51,18 +51,18 @@ export default new Router({
             },
           ]
         },
-        {
-          path: '/stats',
-          name: 'stats',
-          component: () => import('@/pages/stats/Stats'),
-          children: [
-            {
-              path: 'ranking',
-              name: 'ranking',
-              component: () => import('@/pages/stats/ranking/Ranking'),
-            },
-          ]
-        },
+        // {
+        //   path: '/stats',
+        //   name: 'stats',
+        //   component: () => import('@/pages/stats/Stats'),
+        //   children: [
+        //     {
+        //       path: 'ranking',
+        //       name: 'ranking',
+        //       component: () => import('@/pages/stats/ranking/Ranking'),
+        //     },
+        //   ]
+        // },
         {
           path: '/settings',
           name: 'settings',

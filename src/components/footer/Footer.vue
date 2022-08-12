@@ -166,36 +166,36 @@ export default {
             // },
           ]
         },
-        {
-          deletemobile: true,
-          title: "stats",
-          links: [
-            {
-              link: "Ranking",
-              to: "#"
-            },
-            {
-              link: "Activity",
-              to: "#"
-            },
-          ]
-        },
+        // {
+        //   deletemobile: true,
+        //   title: "stats",
+        //   links: [
+        //     {
+        //       link: "Ranking",
+        //       to: "#"
+        //     },
+        //     {
+        //       link: "Activity",
+        //       to: "#"
+        //     },
+        //   ]
+        // },
         {
           deletemobile: true,
           title: "resources",
           links: [
             {
-              link: "Blog",
+              link: "GitBook",
               to: "#"
             },
-            {
-              link: "Partners",
-              to: "#"
-            },
-            {
-              link: "Newsletter",
-              to: "#"
-            },
+            // {
+            //   link: "Partners",
+            //   to: "#"
+            // },
+            // {
+            //   link: "Newsletter",
+            //   to: "#"
+            // },
           ]
         },
         {

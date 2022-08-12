@@ -318,23 +318,45 @@ export default {
           changeMethods: ['resell_domain'],
           sender: wallet.account()
         })
-        await contract.resell_domain({
-          id: this.editedItem.id,
-          price: utils.format.parseNearAmount(this.editedItem.price),
-          post_type: this.editedItem.post_type
-        })
-          .then((response) => {
-            //this.$refs.alerts.Alerts('success', null, 'Published domain');
-            this.changeProgress = false
-            this.getDomainsPurchased()
-            this.closeDialog()
-          }).catch((error) => {
-            console.log(error)
-            //this.$refs.alerts.Alerts('cancel', null, error);
-            //item.ResProgress = false
-            this.changeProgress = false
+
+        if (this.editedItem.post_type == 1) {
+          await contract.resell_domain({
+            id: this.editedItem.id,
+            price: utils.format.parseNearAmount(this.editedItem.price),
+            post_type: this.editedItem.post_type
           })
+            .then((response) => {
+              //this.$refs.alerts.Alerts('success', null, 'Published domain');
+              this.changeProgress = false
+              this.getDomainsPurchased()
+              this.closeDialog()
+            }).catch((error) => {
+              console.log(error)
+              //this.$refs.alerts.Alerts('cancel', null, error);
+              //item.ResProgress = false
+              this.changeProgress = false
+            })
+        } else {
+          await contract.resell_domain({
+            id: this.editedItem.id,
+            price: utils.format.parseNearAmount(this.editedItem.price),
+            post_type: this.editedItem.post_type
+          }, '300000000000000',
+          "1000000000000000000000000")
+            .then((response) => {
+              //this.$refs.alerts.Alerts('success', null, 'Published domain');
+              this.changeProgress = false
+              this.getDomainsPurchased()
+              this.closeDialog()
+            }).catch((error) => {
+              console.log(error)
+              //this.$refs.alerts.Alerts('cancel', null, error);
+              //item.ResProgress = false
+              this.changeProgress = false
+            })
+        }
       } else {
+        this.changeProgress = false
         this.$refs.alerts.Alerts('cancel', null, error);
       }
       

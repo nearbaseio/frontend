@@ -275,12 +275,12 @@ export default {
             name: "MARKET",
             to: "/explore/market",
           },
-          {
-            key: "stats",
-            icon: require("@/assets/icons/stats.png"),
-            name: "STATS",
-            menuStats: true
-          },
+          // {
+          //   key: "stats",
+          //   icon: require("@/assets/icons/stats.png"),
+          //   name: "STATS",
+          //   menuStats: true
+          // },
           {
             key: "resources",
             icon: require("@/assets/icons/resources.png"),
