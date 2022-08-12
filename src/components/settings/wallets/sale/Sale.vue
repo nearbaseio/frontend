@@ -193,7 +193,7 @@
               </v-form>
 
               <aside class="center">
-                <v-btn class="btn" @click="modalPurchased=false">ACCEPT</v-btn>
+                <v-btn class="btn" @click="modalPurchased=false, getDomainsPublished()">ACCEPT</v-btn>
               </aside>
             </v-card>
           </v-window-item>
@@ -290,6 +290,11 @@ export default {
     this.getDomainsPublished()
   },
   methods: {
+    copyToClipBoard() {
+      let seedPhrase = this.dataPhrase[0].model + " " + this.dataPhrase[1].model + " " + this.dataPhrase[2].model + " " + this.dataPhrase[3].model + " " + this.dataPhrase[4].model + " " + this.dataPhrase[5].model + " " + this.dataPhrase[6].model + " " + this.dataPhrase[7].model + " " + this.dataPhrase[8].model + " " + this.dataPhrase[9].model + " " + this.dataPhrase[10].model + " " + this.dataPhrase[11].model
+      navigator.clipboard.writeText(seedPhrase);
+    
+    },
     formatPrice (price) {
       return utils.format.formatNearAmount(price.toLocaleString('fullwide', { useGrouping: false }))
     },
@@ -304,7 +309,6 @@ export default {
         this.domainItem = item
     },
     async cancelDomain () {
-      console.log("hola")
       this.cancelProgress = true
       const near = await connect(config);
       const wallet = new WalletConnection(near)

@@ -3,7 +3,7 @@
     <aside class="contup jspace divwrap relative parent">
       <div class="sectup divrow">
         <h2>TOP</h2>
-        <span class="number">5</span>
+        <span class="number">{{dataTop.length}}</span>
         <!-- <h2>SALES</h2> -->
         <v-btn class="buttons botonUp h11_em" href="#" @click="$router.push('/')">explore
           <v-icon medium>mdi-arrow-right</v-icon>
@@ -92,16 +92,17 @@ export default {
       // create wallet connection
       const wallet = new WalletConnection(near)
       const contract = new Contract(wallet.account(), CONTRACT_NAME, {
-        viewMethods: ['get_top_purchased'],
+        viewMethods: ['get_top_published'],
         sender: wallet.account()
       })
-      await contract.get_top_purchased()
+      await contract.get_top_published()
         .then(async (response) => {
+          console.log(response)
           for (var i = 0; i < response.length; i++) {
             var item = {}
             item.initials = response[i].domain
             item.img = await require("@/assets/avatars/"+ (Math.floor((Math.random() * (6-1)) + 1)) +".png")
-            item.price = response[i].purchase_price
+            item.price = response[i].price
             this.dataTop.push(item)
           }
         })
