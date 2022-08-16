@@ -49,7 +49,7 @@
       </v-card>
     </aside>
   </section>
-  <section v-else align="center" justify="center">
+  <section v-else align="center" justify="center" style="margin-block:10em">
     <v-progress-circular
       :size="110"
       :width="10"
