@@ -113,8 +113,8 @@ export default {
       this.account.wallet = wallet.getAccountId()
 
       if (wallet.isSignedIn()) {
-        // const url = "https://nearbase.io:85/nearbase/api/v1/profile/?wallet=" + this.account.wallet
-        const url = "http://127.0.0.1:8000/api/v1/profile/?wallet=" + this.account.wallet
+        const url = "https://nearbase.io:85/nearbase/api/v1/profile/?wallet=" + this.account.wallet
+        //const url = "http://127.0.0.1:8000/api/v1/profile/?wallet=" + this.account.wallet
         this.axios.defaults.headers.common.Authorization='token'
         this.axios.get(url)
           .then((response) => {
@@ -149,8 +149,8 @@ export default {
           this.formData.append("avatar", this.$store.state.user.image);
         }
 
-        // const url = "https://nearbase.io:85/nearbase/api/v1/profile/"
-        const url = "http://127.0.0.1:8000/api/v1/profile/"
+        const url = "https://nearbase.io:85/nearbase/api/v1/profile/"
+        //const url = "http://127.0.0.1:8000/api/v1/profile/"
         this.axios.defaults.headers.common.Authorization='token '
         this.axios.post(url, this.account)
           .then((response) => {
@@ -190,8 +190,8 @@ export default {
 
         // console.log(this.account.avatar)
 
-        // const url = "https://nearbase.io:85/nearbase/api/v1/profile/" + this.id + "/"
-        const url = "http://127.0.0.1:8000/api/v1/profile/" + this.id + "/"
+        const url = "https://nearbase.io:85/nearbase/api/v1/profile/" + this.id + "/"
+        //const url = "http://127.0.0.1:8000/api/v1/profile/" + this.id + "/"
         this.axios.defaults.headers.common.Authorization='token '
         this.axios.put(url, this.formData)
           .then((response) => {

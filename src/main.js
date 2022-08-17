@@ -11,8 +11,8 @@ import App from './App.vue'
 import vuetify from './plugins/vuetify'
 
 Vue.use(VueAxios,axios);
-//axios.defaults.baseURL='https://nearbase.io:3080/'
-axios.defaults.baseURL='http://localhost:3080/'
+axios.defaults.baseURL='https://nearbase.io:3080/'
+//axios.defaults.baseURL='http://localhost:3080/'
 
 Vue.config.productionTip = false
 
