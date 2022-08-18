@@ -17,6 +17,7 @@
           show-arrows
           class="fill_w"
           active-class="active"
+          :style="`--justify: ${justify}`"
         >
           <v-slide-item
             v-for="(item, index) in dataTop" :key="index"
@@ -64,14 +65,20 @@ export default {
   name: "top",
   data() {
     return {
+      justify: "space-between",
       slider: "",
       dataTop: [],
     }
   },
   async mounted() {
     this.getTop()
+    this.JustifyTop();
   },
   methods: {
+    JustifyTop() {
+      if (this.dataTop.length >= 3) { this.justify = "space-between" }
+      else { this.justify = "space-evenly" }
+    },
     formatPrice (price) {
       return utils.format.formatNearAmount(price.toLocaleString('fullwide', { useGrouping: false }))
     },

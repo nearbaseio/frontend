@@ -23,7 +23,7 @@
     .sectdown {
       .v-slide-group__content {
         display: flex;
-        justify-content: space-between;
+        justify-content: var(--justify);
         padding-block: 1.3em;
         gap: 1em;
         .v-card {

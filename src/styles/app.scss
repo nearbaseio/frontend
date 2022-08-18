@@ -54,13 +54,23 @@
 // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // /
 /* // // scrollbar // // */ 
 // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // /
-::-webkit-scrollbar {
-  width: 10px;
-  &:hover {background: var(--clr-card-scroll)}
-}
-::-webkit-scrollbar-thumb {
-  border-radius: 15px;
-  background: var(--clr-scroll);
+@include reducedMotion {
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+    background: $primary;
+    // &:hover {background: var(--clr-bg-scroll)}
+  }
+  ::-webkit-scrollbar-thumb {
+    border-radius: 15px;
+    background: var(--clr-scroll);
+  }
+  body {
+    &::-webkit-scrollbar {
+      width: 10px;
+      height: 10px
+    }
+  }
 }
 
 
