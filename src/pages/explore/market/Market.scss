@@ -7,7 +7,8 @@
 #explore {
   .contTop {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    // grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(min(100%,21.3125em), 1fr));
     // @include media(min, 1000px) {
     //   grid-template-columns: repeat(2, 1fr);
     //   @include media(min, large) {
@@ -18,7 +19,7 @@
     animation: moveup 1s $ease;
     // margin-top: 6em;
     @media (max-width: 880px) and (max-height: 1180px) {
-      grid-template-columns: repeat(2, 1fr) !important;
+      // grid-template-columns: repeat(2, 1fr) !important;
       @media (max-width: 600px) {
         font-size: 12px !important;
         @media (max-width: 390px) {
@@ -28,6 +29,9 @@
     }
     .card-wrapper {
       font-size: 14px;
+      @media (max-width: 550px) {font-size: 12px}
+      @media (max-width: 450px) {font-size: 10px}
+      @media (max-width: 370px) {font-size: 8px}
       letter-spacing: 0.07em;
       line-height: 1.2;
       transition: grid-column 1s $ease-return;
