@@ -1,0 +1,69 @@
+/* global colors */
+:root {
+  --bg: #000000;
+  --clr: #FFFFFF;
+  --clr-inv: #111011;
+  --clr-card: #191919;
+  --clr-card-inv: #FFFFFF;
+  --clr-card-2: #3D3737;
+  --clr-card-3: #484242;
+  --clr-card-4: hsl(0 0% 0% / 25%);
+  --clr-card-5: hsl(0 0% 0% / 25%);
+  --clr-card-6: hsl(0 5% 10%);
+  --clr-hover: hsl(288 90% 90%);
+  --clr-scroll: #AD0FD5;
+  --clr-card-scroll: #B7B89F;
+  --clr-btn: #AD0FD5;
+  --clr-text-btn: #FFFFFF;
+  --clr-btn-2: #C4C4C4;
+  --clr-text-btn-2: #191919;
+  /* badge */
+  --clr-badge: #FFFFFF;
+  --clr-text-badge: #AD0FD5;
+  --clr-badge-inv: #AD0FD5;
+  --clr-text-badge-inv: #FFFFFF;
+  /* language */
+  --clr-bg-language: #191919;
+  --clr-text-bg-language: #AD0FD5;
+  /* navigation */
+  --clr-navigation: #757575;
+  --clr-navigation-2: rgb(196, 196, 196);
+  --mix-blend-mode: screen;
+}
+
+/* personal clases */
+.clr {
+  color: var(--clr) !important;
+}
+.clr_inv {
+  color: var(--clr-inv) !important;
+}
+.clr_card {
+  background-color: var(--clr-card) !important;
+}
+.clr_card-inv {
+  background-color: var(--clr-card-inv) !important;
+}
+.filter {
+  filter: invert(100%) !important;
+}
+.filter_inv {
+  filter: invert(0%) !important;
+}
+.clr_svg {
+  fill: var(--clr) !important;
+}
+.clr_svg_inv {
+  fill: var(--clr-inv) !important;
+}
+.clr_card_2 {
+  background-color: var(--clr-card-2) !important;
+}
+.clr_btn {
+  background-color: var(--clr-btn) !important;
+}
+.clr_text_btn {
+  color: var(--clr-text-btn) !important;
+}
+
+/* ////////////////////////////////////////////// */

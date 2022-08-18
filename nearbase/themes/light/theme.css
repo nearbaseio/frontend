@@ -1,0 +1,69 @@
+/* global colors */
+:root {
+  --bg: #FFFFFF;
+  --clr: #111011;
+  --clr-inv: #FFFFFF;
+  --clr-card: #FFFFFF;
+  --clr-card-inv: #191919;
+  --clr-card-2: #FFFFFF;
+  --clr-card-3: hsl(243 100% 96% / 30%);
+  --clr-card-4: hsl(0 0% 77% / 30%);
+  --clr-card-5: #ECEBFF;
+  --clr-card-6: #ECEBFF;
+  --clr-hover: hsl(288 90% 10%);
+  --clr-scroll: #AD0FD5;
+  --clr-card-scroll: rgb(224, 224, 224);
+  --clr-btn: #AD0FD5;
+  --clr-text-btn: #FFFFFF;
+  --clr-btn-2: #191919;
+  --clr-text-btn-2: #C4C4C4;
+  /* badge */
+  --clr-badge: #AD0FD5;
+  --clr-text-badge: #FFFFFF;
+  --clr-badge-inv: #FFFFFF;
+  --clr-text-badge-inv: #AD0FD5;
+  /* language */
+  --clr-bg-language: #AD0FD5;
+  --clr-text-bg-language: #C4C4C4;
+  /* navigation */
+  --clr-navigation: rgba(196, 196, 196, 0.53);
+  --clr-navigation-2: #c4c4c4;
+  --mix-blend-mode: multiply;
+}
+
+/* personal clases */
+.clr {
+  color: var(--clr) !important;
+}
+.clr_inv {
+  color: var(--clr-inv) !important;
+}
+.clr_card {
+  background-color: var(--clr-card) !important;
+}
+.clr_card_inv {
+  background-color: var(--clr-card-inv) !important;
+}
+.filter {
+  filter: invert(0%) !important;
+}
+.filter_inv {
+  filter: invert(100%) !important;
+}
+.clr_svg {
+  fill: var(--clr) !important;
+}
+.clr_svg_inv {
+  fill: var(--clr-inv) !important;
+}
+.clr_card_2 {
+  background-color: var(--clr-card-2) !important;
+}
+.clr_btn {
+  background-color: var(--clr-btn) !important;
+}
+.clr_text_btn {
+  color: var(--clr-text-btn) !important;
+}
+
+/* ////////////////////////////////////////////// */
