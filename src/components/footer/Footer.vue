@@ -245,8 +245,7 @@ export default {
         .then((response) => {
           console.log(response)
           if (response.status === 200){
-            this.$refs.alerts.Alerts('success', null, 'Published domain');
-            this.$router.push({ path: '/settings/wallets/sale' })         
+            this.$refs.alerts.Alerts('success', null, 'Email guardado');      
           } else if (response.status === 204){
             this.$refs.alerts.Alerts('cancel', null, 'Email invalido');
           } else {

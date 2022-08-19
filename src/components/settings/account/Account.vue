@@ -113,7 +113,7 @@ export default {
       this.account.wallet = wallet.getAccountId()
 
       if (wallet.isSignedIn()) {
-        const url = "https://nearbase.io:85/nearbase/api/v1/profile/?wallet=" + this.account.wallet
+        const url = "https://www.nearbase.io/nearbase/api/v1/profile/?wallet=" + this.account.wallet
         //const url = "http://127.0.0.1:8000/api/v1/profile/?wallet=" + this.account.wallet
         this.axios.defaults.headers.common.Authorization='token'
         this.axios.get(url)
@@ -139,20 +139,32 @@ export default {
       const wallet = new WalletConnection(near)
 
       if (wallet.isSignedIn()) {
+        console.log("first",this.first_name)
+        console.log("last_name",this.last_name)
+        console.log("email",this.email)
+        console.log("phone",this.phone)
         
         this.formData.append("wallet", wallet.getAccountId());
-        this.formData.append("first_name", this.first_name);
-        this.formData.append("last_name", this.last_name);
-        this.formData.append("email", this.email);
-        this.formData.append("phone", this.phone);
+        if (this.first_name) {
+          this.formData.append("first_name", this.first_name);
+        }
+        if (this.last_name) {
+          this.formData.append("last_name", this.last_name);
+        }
+        if (this.email) {
+          this.formData.append("email", this.email);
+        }
+        if (this.phone) {
+          this.formData.append("phone", this.phone);
+        }
         if (this.$store.state.user.image) {
           this.formData.append("avatar", this.$store.state.user.image);
         }
 
-        const url = "https://nearbase.io:85/nearbase/api/v1/profile/"
+        const url = "https://www.nearbase.io/nearbase/api/v1/profile/"
         //const url = "http://127.0.0.1:8000/api/v1/profile/"
         this.axios.defaults.headers.common.Authorization='token '
-        this.axios.post(url, this.account)
+        this.axios.post(url, this.formData)
           .then((response) => {
             if (response.data){
               this.$refs.alerts.Alerts('success', null, 'El perfil ha sido guardado');
@@ -175,7 +187,9 @@ export default {
         this.formData.append("wallet", wallet.getAccountId());
         this.formData.append("first_name", this.first_name);
         this.formData.append("last_name", this.last_name);
-        this.formData.append("email", this.email);
+        if (this.email) {
+          this.formData.append("email", this.email);
+        }
         this.formData.append("phone", this.phone);
         if (this.$store.state.user.image) {
           this.formData.append("avatar", this.$store.state.user.image);
@@ -190,10 +204,10 @@ export default {
 
         // console.log(this.account.avatar)
 
-        const url = "https://nearbase.io:85/nearbase/api/v1/profile/" + this.id + "/"
+        const url = "https://www.nearbase.io/nearbase/api/v1/profile/" + this.id + "/"
         //const url = "http://127.0.0.1:8000/api/v1/profile/" + this.id + "/"
         this.axios.defaults.headers.common.Authorization='token '
-        this.axios.put(url, this.formData)
+        this.axios.patch(url, this.formData)
           .then((response) => {
             if (response.data){
               console.log(response.data)
