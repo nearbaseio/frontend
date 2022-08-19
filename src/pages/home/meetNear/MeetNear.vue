@@ -1,6 +1,6 @@
 <template>
   <section id="meetNear" class="space section divwrapmobile">
-    <div class="space divwrapmobile parent">
+    <div class="space divwrapmobile parent gap2mobile">
       <aside class="divcol">
         <h3>MEET NEAR PROTOCOL</h3>
         <span class="h10_em">The Wallet marketplace with everything for everyone</span>

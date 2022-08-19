@@ -25,11 +25,16 @@
       width: 25ch;
     }
   }
-  img {
+  video {
     width: clamp(20em, 32vw, 32em);
-    aspect-ratio: 2 / 1;
+    @include media(max, small) {width: 100%}
     border-radius: 14px;
   }
+  // img {
+  //   width: clamp(20em, 32vw, 32em);
+  //   aspect-ratio: 2 / 1;
+  //   border-radius: 14px;
+  // }
 }
 
 /* // // mobile // // */ 
